@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/hand"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:text="手动配置" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="199dp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@mipmap/icon_login_main" />
+
+    <EditText
+        android:id="@+id/hand_lianjietext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="输入链接地址"
+        android:inputType="text"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape"
+        android:text="" />
+
+    <Button
+        android:id="@+id/hand_saveedit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/shape_login"
+        android:textSize="20dp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:text="保存修改" />
+
+    <Button
+        android:id="@+id/hand_scanbutton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:paddingBottom="35dp"
+        android:paddingLeft="175dp"
+        android:background="@color/colorWhite"
+        android:text="扫描配置" />
+</LinearLayout>

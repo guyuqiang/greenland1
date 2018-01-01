@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<RadioGroup
+    android:id="@+id/rg_tab_bar"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorgray"
+    android:orientation="horizontal"
+    android:layout_height="80dp">
+    <RadioButton
+        android:id="@+id/rb_xiaoxi"
+        style="@style/tab_menu_item"
+        android:drawableTop="@mipmap/ic_launcher_round"
+        android:text="@string/xiaoxi" />
+
+    <RadioButton
+        android:id="@+id/rb_pandian"
+        style="@style/tab_menu_item"
+        android:drawableTop="@mipmap/ic_launcher_round"
+        android:text="@string/pandian"/>
+
+    <RadioButton
+        android:id="@+id/rb_asset"
+        style="@style/tab_menu_item"
+        android:drawableTop="@mipmap/ic_launcher_round"
+        android:text="@string/asset"/>
+</RadioGroup>
+    <FrameLayout
+        android:id="@+id/ly_content"
+        android:layout_above="@id/rg_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</RelativeLayout>
