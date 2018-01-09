@@ -8,14 +8,14 @@
 
     <LinearLayout
         android:id="@+id/whole"
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorWhite"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="8dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -28,57 +28,58 @@
             android:id="@+id/editUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/shape"
+            android:ems="10"
             android:hint="输入用户名"
+            android:inputType="text"
             android:text="" />
 
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/shape"
-            android:inputType="textPassword"
+            android:ems="10"
             android:hint="输入密码"
+            android:inputType="textPassword"
             android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="85dp"
             android:layout_marginRight="70dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
+
             <RadioGroup
                 android:id="@+id/main_radiogroup"
                 android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="离线登陆" />
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="连线登陆" />
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="离线登陆" />
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="连线登陆" />
             </RadioGroup>
         </LinearLayout>
 
@@ -86,22 +87,20 @@
             android:id="@+id/savebutton"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/shape_login"
-            android:textSize="20dp"
+            android:text="登录"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:text="登录" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="130dp"
+            android:layout_height="match_parent"
             android:background="@drawable/shape_empty"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <Button
@@ -110,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_empty"
-                android:paddingLeft="80dp"
+                android:gravity="right"
                 android:text="⚃扫描配置 |" />
 
             <Button
@@ -119,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_empty"
-                android:paddingRight="100dp"
+                android:gravity="left"
                 android:text="手动配置" />
         </LinearLayout>
 

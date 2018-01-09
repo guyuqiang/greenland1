@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Intent it = getIntent();
         lijtext = it.getStringExtra("ljtext");
         personDao = new PersonDao();
-        dbOpenHelper = new DBOpenHelper(context,"my.db",null,1);
+        dbOpenHelper = new DBOpenHelper(context,"my.db",null,2);
         dbOpenHelper.getWritableDatabase();
         db = dbOpenHelper.getWritableDatabase();
         sh = new SharedHelper(mcontext);
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                         String message = (String) rb.getText();
                         if ("连线登陆".equals(message)) {
                             //远程验证用户名和密码是否正确
-                            String url =lijtext+"/plugins/hdcz/app/App.jsp?name="+name+"&password="+md5password;
-                            backresult = new LoginDao().logIn(url);
-                            Toast.makeText(mcontext,backresult,Toast.LENGTH_SHORT).show();
+//                            String url =lijtext+"/plugins/hdcz/app/App.jsp?name="+name+"&password="+md5password;
+//                            backresult = new LoginDao().logIn(url);
+//                            Toast.makeText(mcontext,backresult,Toast.LENGTH_SHORT).show();
                             //根据name从数据库中查询数据
                             person1 = personDao.getPersonByName(name, db);
                             //数据库中有此条数据
