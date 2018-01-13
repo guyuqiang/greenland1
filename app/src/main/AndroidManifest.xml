@@ -9,8 +9,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace= "icon,theme"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="icon,theme">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,9 +41,9 @@
         </activity>
         <activity android:name=".PdInformationActivity">
             <intent-filter>
-                <action android:name="android.intent.action.PDINFORMATIONACTIVITY" />
+                <action android:name="PDINFORMATIONACTIVITY" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="PDINFORMATIONACTIVITY" />
             </intent-filter>
         </activity>
         <activity android:name=".AssetPandActivity">
@@ -53,6 +53,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AssetPandInformationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.AssetPandInformationActivity" />
+
+                <category android:name="android.intent.category.AssetPandInformationActivity" />
+            </intent-filter>
+        </activity>
     </application>
-<uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

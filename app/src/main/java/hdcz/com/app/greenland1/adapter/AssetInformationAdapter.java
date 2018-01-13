@@ -2,6 +2,8 @@ package hdcz.com.app.greenland1.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import hdcz.com.app.greenland1.R;
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
+import hdcz.com.app.greenland1.picture.ImageHelper;
 
 /**
  * Created by guyuqiang on 2018/1/3.17:11
@@ -55,6 +58,12 @@ public class AssetInformationAdapter extends BaseAdapter {
         belongdepartment.setText(data.get(position).getAsset_belongdepart());
         uselocation.setText(data.get(position).getAsset_uselocation());
         savelocation.setText(data.get(position).getAsset_savelocation());
+        byte [] imagedate = data.get(position).getAsset_pdphoto();
+        if(imagedate==null||"".equals(imagedate)||"null".equals(imagedate)) {
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imagedate, 0, imagedate.length);
+            image.setImageBitmap(bitmap);
+        }
         return convertView;
     }
 

@@ -1,8 +1,11 @@
 package hdcz.com.app.greenland1;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -37,6 +40,7 @@ import hdcz.com.app.greenland1.webservice.WebService;
 public class PdInformationActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
     private TextView texthead;
     private Button back;
+    private Button refresh;
     private Button download;
     private Button pand;
     private Button endpand;
@@ -53,12 +57,15 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
     private FragementNotCheck fragementNotCheck;
     private FragementYetCheck fragementYetCheck;
     private RadioButton rb;
+    private RadioButton rb1;
     private RadioGroup rg;
     private ReturnMessage message = new ReturnMessage();
     private CheckInformationBean checkbean;
     private String wpandnum;
     private String yipandnum;
-    private final int requestcode = 111111;
+    private DialogInterface.OnClickListener dialog_delete;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +73,8 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         bindview();
         Intent it = getIntent();
         String pandinforjson = it.getStringExtra("pdinformation");
-        checkbean = new Gson().fromJson(pandinforjson,CheckInformationBean.class);
-        texthead.setText("盘点编号："+checkbean.getCode()+"["+checkbean.getPdlx()+"]");
+        checkbean = new Gson().fromJson(pandinforjson, CheckInformationBean.class);
+        texthead.setText("盘点编号：" + checkbean.getCode() + "[" + checkbean.getPdlx() + "]");
         fqr.setText(checkbean.getFqr());
         fqsj.setText(checkbean.getFqsj());
         pdsj.setText(checkbean.getPdsj());
@@ -76,101 +83,183 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         mecontext = getApplicationContext();
         rg = findViewById(R.id.information_rg_center);
         rg.setOnCheckedChangeListener(this);
-       //获取第一个单选按钮
+        //获取第一个单选按钮
         rb = findViewById(R.id.information_rb_yipandian);
         rb.setChecked(true);
-        //下载按钮添加事件
-        download.setOnClickListener(new downloadButton());
         //获取未盘点数量
         AssetInformationDao assetInformationDao = new AssetInformationDao();
-        SQLiteDatabase db = GetDbUtil.getDb(mecontext,2,"my.db");
-        wpandnum = assetInformationDao.getDataCount(checkbean.getCode(),"0",db);
-        weipand.setText("未盘点："+wpandnum);
+        SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+        wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+        weipand.setText("未盘点：" + wpandnum);
         //获取已盘点数量
-        yipandnum = assetInformationDao.getDataCount(checkbean.getCode(),"1",db);
-        yipand.setText("已盘点："+yipandnum);
+        yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
+        yipand.setText("已盘点：" + yipandnum);
         //盘点按钮添加点击事件
         pand.setOnClickListener(new pandButton());
+        //刷新按钮添加点击事件
+        refresh.setOnClickListener(new refreshButton());
+        //下载按钮添加事件
+        download.setOnClickListener(new downloadButton());
+        if (Integer.parseInt(yipandnum)>0||Integer.parseInt(wpandnum)>0) {
+            download.setText("删除资料");
+        } else {
+            download.setText("下载资料");
+        }
     }
-    public void bindview(){
-         texthead = findViewById(R.id.information_head);
-         back = findViewById(R.id.information_bakc);
-         download = findViewById(R.id.information_button_download);
-         pand = findViewById(R.id.information_button_scan);
-         endpand = findViewById(R.id.information_button_endcheck);
-         up = findViewById(R.id.information_button_up);
-         fqr = findViewById(R.id.information_text_fqr);
-         fqsj = findViewById(R.id.information_text_fqsj);
-         jdt = findViewById(R.id.information_text_jdt);
-         pdsj = findViewById(R.id.information_text_pdsj);
-         yipand = findViewById(R.id.information_rb_yipandian);
-         weipand = findViewById(R.id.information_rg_weipandian);
+
+    public void bindview() {
+        texthead = findViewById(R.id.information_head);
+        back = findViewById(R.id.information_bakc);
+        refresh = findViewById(R.id.information_refresh);
+        download = findViewById(R.id.information_button_download);
+        pand = findViewById(R.id.information_button_scan);
+        //endpand = findViewById(R.id.information_button_endcheck);
+        up = findViewById(R.id.information_button_up);
+        fqr = findViewById(R.id.information_text_fqr);
+        fqsj = findViewById(R.id.information_text_fqsj);
+        jdt = findViewById(R.id.information_text_jdt);
+        pdsj = findViewById(R.id.information_text_pdsj);
+        yipand = findViewById(R.id.information_rb_yipandian);
+        weipand = findViewById(R.id.information_rg_weipandian);
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-             ft = fm.beginTransaction();
-             hideAllFragment(ft);
-        switch (checkedId){
+        ft = fm.beginTransaction();
+        hideAllFragment(ft);
+        switch (checkedId) {
             case R.id.information_rg_weipandian:
-                if(fragementNotCheck==null){
-                    fragementNotCheck =new FragementNotCheck(checkbean);
-                    ft.add(R.id.information_listview_content,fragementNotCheck);
-                }else{
-                    ft.show(fragementNotCheck);
-                }
+                //if(fragementNotCheck==null){
+                AssetInformationDao assetInformationDao = new AssetInformationDao();
+                SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+                wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+                weipand.setText("未盘点：" + wpandnum);
+                yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
+                yipand.setText("已盘点：" + yipandnum);
+                fragementNotCheck = new FragementNotCheck(checkbean);
+                ft.add(R.id.information_listview_content, fragementNotCheck);
+                //}else{
+                // ft.show(fragementNotCheck);
+                //}
                 break;
             case R.id.information_rb_yipandian:
-                if(fragementYetCheck==null){
-                    fragementYetCheck = new FragementYetCheck(checkbean.getCode());
-                    ft.add(R.id.information_listview_content,fragementYetCheck);
-                }else {
-                    ft.show(fragementYetCheck);
-                }
+                AssetInformationDao assetInformationDao1 = new AssetInformationDao();
+                SQLiteDatabase db1 = GetDbUtil.getDb(mecontext, 2, "my.db");
+                yipandnum = assetInformationDao1.getDataCount(checkbean.getCode(), "1", db1);
+                yipand.setText("已盘点：" + yipandnum);
+                wpandnum = assetInformationDao1.getDataCount(checkbean.getCode(), "0", db1);
+                weipand.setText("未盘点：" + wpandnum);
+                fragementYetCheck = new FragementYetCheck(checkbean);
+                ft.add(R.id.information_listview_content, fragementYetCheck);
                 break;
         }
         ft.commit();
     }
 
-    class ButtonBack implements View.OnClickListener{
+    class ButtonBack implements View.OnClickListener {
         @Override
-        public  void onClick(View v){
-            Intent it = new Intent(PdInformationActivity.this,InformationActivity.class );
+        public void onClick(View v) {
+            Intent it = new Intent(PdInformationActivity.this, InformationActivity.class);
             startActivity(it);
         }
     }
+
     //隐藏所有fagement
-    public void hideAllFragment(FragmentTransaction fragmentTransaction){
-        if(fragementNotCheck !=null)fragmentTransaction.hide(fragementNotCheck);
-        if(fragementYetCheck != null)fragmentTransaction.hide(fragementYetCheck);
+    public void hideAllFragment(FragmentTransaction fragmentTransaction) {
+        if (fragementNotCheck != null) fragmentTransaction.hide(fragementNotCheck);
+        if (fragementYetCheck != null) fragmentTransaction.hide(fragementYetCheck);
     }
+
     //下载按钮添加点击事件
-    class  downloadButton implements View.OnClickListener{
+    class downloadButton implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            WebService webService = new WebService();
-             message = webService.getAssetByWebservice(mecontext,checkbean.getCode());
-             if(message.getStatus()==0){
-                 Toast.makeText(mecontext,message.getMessage(),Toast.LENGTH_SHORT).show();
-             }else{
-                 Toast.makeText(mecontext,"开始下载资料",Toast.LENGTH_SHORT).show();
-                 Toast.makeText(mecontext,message.getMessage(),Toast.LENGTH_SHORT).show();
-                 weipand.setText("未盘点："+message.getStatus()+"");
-             }
+            String tag = (String) download.getText();
+            if ("下载资料".equals(tag)) {
+                WebService webService = new WebService();
+                message = webService.getAssetByWebservice(mecontext, checkbean.getCode());
+                if (message.getStatus() == 0) {
+                    Toast.makeText(mecontext, message.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mecontext, "开始下载资料", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mecontext, message.getMessage(), Toast.LENGTH_SHORT).show();
+                    download.setText("删除资料");
+                    refreshView();
+                }
+            } else {
+                //删除资料
+                dialog_delete = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AssetInformationDao assetInformationDao = new AssetInformationDao();
+                        SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+                        assetInformationDao.DeleteAsset(checkbean.getCode(), db);
+                        download.setText("下载资料");
+                        Toast.makeText(mecontext, "删除完成！", Toast.LENGTH_SHORT).show();
+                        refreshView();
+                    }
+                };
+                showDialog(v);
+            }
         }
     }
-    class  pandButton implements View.OnClickListener{
+
+    //盘点按钮添加事件
+    class pandButton implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent it = new Intent(PdInformationActivity.this, CaptureActivity.class);
-           startActivity(it);
-            //startActivityForResult(it,requestcode);
+            AssetInformationDao assetInformationDao = new AssetInformationDao();
+            SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+            wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+            if(Integer.parseInt(wpandnum)>0) {
+                Intent it = new Intent(PdInformationActivity.this, CaptureActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("code", checkbean.getCode());
+                bundle.putString("fqr", checkbean.getFqr());
+                bundle.putString("fqsj", checkbean.getFqsj());
+                bundle.putString("pdlx", checkbean.getPdlx());
+                bundle.putString("pdsj", checkbean.getPdsj());
+                bundle.putString("status", "pand");
+                it.putExtras(bundle);
+                startActivity(it);
+            }else{
+                pand.setTextColor(Color.parseColor("#8b8787"));
+                Toast.makeText(mecontext,"资产已盘点完!",Toast.LENGTH_SHORT).show();
+            }
         }
     }
-//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-//        if (resultCode == RESULT_OK && requestCode == requestCode ) {
-//            intent.getDataString();
-//            Toast.makeText(mecontext,"dfdfdfdf",Toast.LENGTH_SHORT).show();
-//            }
-//        }
+
+    //刷新按钮添加事件
+    class refreshButton implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            refreshView();
+        }
+    }
+
+    public void refreshView() {
+        AssetInformationDao assetInformationDao = new AssetInformationDao();
+        SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+        rb = findViewById(R.id.information_rb_yipandian);
+        rb1 = findViewById(R.id.information_rg_weipandian);
+        wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+        weipand.setText("未盘点：" + wpandnum);
+        rb1.setChecked(true);
+        //获取已盘点数量
+        yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
+        yipand.setText("已盘点：" + yipandnum);
+        rb.setChecked(true);
+        if(Integer.parseInt(wpandnum)==0){
+            pand.setTextColor(Color.parseColor("#8b8787"));
+        }
+    }
+    //弹出框
+    public void showDialog(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("确定删除数据！");
+        builder.setPositiveButton("返回", null);
+        builder.setNegativeButton("确定", dialog_delete);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }

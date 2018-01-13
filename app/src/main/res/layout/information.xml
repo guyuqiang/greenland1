@@ -23,6 +23,9 @@
         <Button
             android:id="@+id/information_bakc"
             style="@style/back_button" />
+        <Button
+            android:id="@+id/information_refresh"
+            style="@style/refresh_button" />
     </RelativeLayout>
 
     <LinearLayout
@@ -42,11 +45,11 @@
             android:drawableTop="@mipmap/ic_launcher_round"
             android:text="@string/pandian" />
 
-        <Button
-            android:id="@+id/information_button_endcheck"
-            style="@style/informaton_top_bar"
-            android:drawableTop="@mipmap/ic_launcher_round"
-            android:text="@string/endcheck" />
+        <!--<Button-->
+            <!--android:id="@+id/information_button_endcheck"-->
+            <!--style="@style/informaton_top_bar"-->
+            <!--android:drawableTop="@mipmap/ic_launcher_round"-->
+            <!--android:text="@string/endcheck" />-->
 
         <Button
             android:id="@+id/information_button_up"

@@ -1,17 +1,25 @@
 package hdcz.com.app.greenland1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.IOException;
 
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
 import hdcz.com.app.greenland1.bean.CheckInformationBean;
@@ -42,9 +50,12 @@ public class AssetPandActivity extends AppCompatActivity {
     private TextView assetpand_savelocation;
     private TextView assetpand_uselocation;
     private TextView assetpand_pandstatus;
+    private ImageView image_show;
+    private File currentimagefile = null;
     private Button assetpand_sure;
     private String checkjson;
     private String assetjson;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +90,8 @@ public class AssetPandActivity extends AppCompatActivity {
         assetpand_sure.setOnClickListener(new AssetPandSureButton());
         //添加返回事件
         assetpand_back.setOnClickListener(new AssetPandButtonBack());
+        //调取相机
+        image_show.setOnClickListener(new ImageViewButton());
     }
 
     public void bindView() {
@@ -98,6 +111,7 @@ public class AssetPandActivity extends AppCompatActivity {
         assetpand_savelocation = findViewById(R.id.assetpand_text_savelocation);
         assetpand_uselocation = findViewById(R.id.assetpand_text_uselocation);
         assetpand_pandstatus = findViewById(R.id.assetpand_pandstatus_hand);
+        image_show = findViewById(R.id.assetpand_showview);
         assetpand_sure = findViewById(R.id.assetpand_surebutton);
     }
 
@@ -110,9 +124,7 @@ public class AssetPandActivity extends AppCompatActivity {
             //获取链接
             SQLiteDatabase db = GetDbUtil.getDb(mcontext, 2, "my.db");
             AssetInformationDao assetInformationDao = new AssetInformationDao();
-            assetInformationDao.EditStatus(checkInformationBean.getCode(), assetInformationBean.getAsset_code(), "1", pandstatus, db);
-//            Toast.makeText(mcontext,"点击确定按钮",Toast.LENGTH_SHORT).show();
-//            finish();
+            assetInformationDao.EditStatus(checkInformationBean.getCode(), assetInformationBean.getAsset_code(), "1", pandstatus,bitmap, db);
             Intent it = new Intent(AssetPandActivity.this, PdInformationActivity.class);
             it.putExtra("pdinformation", checkjson);
             startActivity(it);
@@ -122,8 +134,38 @@ public class AssetPandActivity extends AppCompatActivity {
     class AssetPandButtonBack implements View.OnClickListener{
         @Override
         public  void onClick(View v){
-            Intent it = new Intent(AssetPandActivity.this,PdInformationActivity.class );
-            startActivity(it);
+            finish();
         }
+    }
+    //调取相机
+    class ImageViewButton implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+//            File dir = new File(Environment.getExternalStorageDirectory(),"pictures");
+//            if(dir.exists()){
+//                dir.mkdirs();
+//            }
+//            currentimagefile = new File(dir,System.currentTimeMillis()+".jpg");
+//            if (!currentimagefile.exists()){
+//                try{
+//                    currentimagefile.createNewFile();
+//                }catch (IOException e){
+//                    e.printStackTrace();
+//                }
+//            }
+            Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            //it.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(currentimagefile));
+            startActivityForResult(it, Activity.DEFAULT_KEYS_DIALER);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       if(requestCode == Activity.DEFAULT_KEYS_DIALER){
+           Bundle bundle = data.getExtras();
+            bitmap = (Bitmap) bundle.get("data");
+           image_show.setImageBitmap(bitmap);
+           //image_show.setImageURI(Uri.fromFile(currentimagefile));
+       }
     }
 }

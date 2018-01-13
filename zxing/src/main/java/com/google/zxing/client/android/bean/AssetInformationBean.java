@@ -1,4 +1,4 @@
-package hdcz.com.app.greenland1.bean;
+package com.google.zxing.client.android.bean;
 
 /**
  * Created by guyuqiang on 2018/1/3.11:40
@@ -14,7 +14,7 @@ public class AssetInformationBean {
     //资产未盘点照片
     private String asset_wpdphoto;
     //资产盘点照片
-    private byte[] asset_pdphoto;
+    private String asset_pdphoto;
     //资产使用人
     private String asset_usename;
     //资产类型
@@ -38,7 +38,7 @@ public class AssetInformationBean {
     //默认字段2
     private String asset_deffind2;
 
-    public AssetInformationBean(int id, String asset_code, String asset_name, String asset_wpdphoto, byte[] asset_pdphoto, String asset_usename, String asset_type, String asset_spex, String asset_unit, String asset_belongdepart, String asset_savelocation, String asset_uselocation, String asset_status, String asset_pandstatus, String asset_deffind1, String asset_deffind2) {
+    public AssetInformationBean(int id, String asset_code, String asset_name, String asset_wpdphoto, String asset_pdphoto, String asset_usename, String asset_type, String asset_spex, String asset_unit, String asset_belongdepart, String asset_savelocation, String asset_uselocation, String asset_status, String asset_pandstatus, String asset_deffind1, String asset_deffind2) {
         this.id = id;
         this.asset_code = asset_code;
         this.asset_name = asset_name;
@@ -92,11 +92,11 @@ public class AssetInformationBean {
         this.asset_wpdphoto = asset_wpdphoto;
     }
 
-    public byte[] getAsset_pdphoto() {
+    public String getAsset_pdphoto() {
         return asset_pdphoto;
     }
 
-    public void setAsset_pdphoto(byte[] asset_pdphoto) {
+    public void setAsset_pdphoto(String asset_pdphoto) {
         this.asset_pdphoto = asset_pdphoto;
     }
 

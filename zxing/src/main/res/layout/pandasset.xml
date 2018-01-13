@@ -199,6 +199,7 @@
             android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
+            android:paddingLeft="17dp"
             android:text="使用人：" />
 
         <TextView
@@ -207,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:textSize="18dp"
-            android:text="李玲" />
+            android:text="" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -224,7 +225,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:textSize="18dp"
-            android:text="办公用品" />
+            android:text="" />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -251,9 +252,9 @@
             android:id="@+id/assetpand_text_assetspex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="6"
             android:textSize="18dp"
-            android:text="戴尔" />
+            android:text="" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -268,9 +269,9 @@
             android:id="@+id/assetpand_text_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="14"
+            android:layout_weight="8"
             android:textSize="18dp"
-            android:text="个" />
+            android:text="" />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -299,7 +300,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18dp"
-            android:text="财务部" />
+            android:text="" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -316,7 +317,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:textSize="18dp"
-            android:text="成都天府新区" />
+            android:text="" />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -362,41 +363,66 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:gravity="right"
+            android:layout_gravity="center"
             android:text="盘点方式：" />
-        <TextView
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textSize="16dp"-->
+            <!--android:text="终端盘点" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/assetpand_pandstatus_hand"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="5"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:text="手动报损" />-->
+        <RadioGroup
+            android:id="@+id/assetpand_radiogroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="16dp"
-            android:text="终端盘点" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/assetpand_pandstatus_hand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:textSize="16dp"
-            android:textColor="@color/colorPrimary"
-            android:text="手动报损" />
+            <RadioButton
+                android:id="@+id/assetpand_zduanradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="终端盘点" />
+
+            <RadioButton
+                android:id="@+id/assetpand_handradioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="6"
+                android:text="手动报损" />
+        </RadioGroup>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="120dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="6dp"
         android:layout_height="120dp">
 
         <ImageView
-            android:id="@+id/assetpand_showview"
+            android:id="@+id/pandasset_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@color/colorPrimaryDark" />
     </RelativeLayout>
 <LinearLayout
     android:layout_width="match_parent"

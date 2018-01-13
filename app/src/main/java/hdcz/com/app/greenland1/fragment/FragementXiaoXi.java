@@ -58,15 +58,14 @@ public class FragementXiaoXi extends Fragment {
             @SuppressLint("CommitTransaction")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               CheckInformationBean cf = data.get(position);
-                Toast.makeText(view.getContext(), "你点击了第" + position + "项,发起人:"+cf.getFqr(), Toast.LENGTH_SHORT).show();
-                //FragmentPanDian fpd = new FragmentPanDian();
-                InformationActivity activity = (InformationActivity) getActivity();
+                CheckInformationBean cf = data.get(position);
+                //Toast.makeText(view.getContext(), "你点击了第" + position + "项,发起人:"+cf.getFqr(), Toast.LENGTH_SHORT).show();
+                //  InformationActivity activity = (InformationActivity) getActivity();
                 //activity.getSupportFragmentManager().beginTransaction().replace(R.id.ly_content,fpd);
 //                RadioButton rb = activity.findViewById(R.id.rb_pandian);
 //                rb.setChecked(true);
                 Intent it1 = new Intent(view.getContext(), PdInformationActivity.class);
-                it1.putExtra("pdinformation",new Gson().toJson(cf));
+                it1.putExtra("pdinformation", new Gson().toJson(cf));
                 startActivity(it1);
 
             }
