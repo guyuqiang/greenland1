@@ -6,14 +6,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,17 +25,30 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.client.android.CaptureActivity;
-import com.google.zxing.client.android.Intents;
-import com.google.zxing.client.android.history.HistoryItem;
-import com.google.zxing.client.android.result.ResultHandler;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpResponseException;
+import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import hdcz.com.app.greenland1.bean.AssetInformationBean;
 import hdcz.com.app.greenland1.bean.CheckInformationBean;
 import hdcz.com.app.greenland1.dao.AssetInformationDao;
+import hdcz.com.app.greenland1.dao.CheckInformationDao;
 import hdcz.com.app.greenland1.fragment.FragementNotCheck;
 import hdcz.com.app.greenland1.fragment.FragementYetCheck;
+import hdcz.com.app.greenland1.json.AssetJson;
+import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
 import hdcz.com.app.greenland1.util.GetDbUtil;
 import hdcz.com.app.greenland1.util.ReturnMessage;
-import hdcz.com.app.greenland1.webservice.WebService;
 
 /**
  * Created by guyuqiang on 2018/1/3.10:05
@@ -64,6 +81,14 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
     private String wpandnum;
     private String yipandnum;
     private DialogInterface.OnClickListener dialog_delete;
+    private String assetdown_result;
+    private String assetdown_status;
+    private SharedHelper sh;
+    private String user;
+    private String ljtext;
+    private String upresult="0";
+    private ImageView information_imageview;
+    private AnimationDrawable ad;
 
 
     @Override
@@ -78,11 +103,17 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         fqr.setText(checkbean.getFqr());
         fqsj.setText(checkbean.getFqsj());
         pdsj.setText(checkbean.getPdsj());
+        //返回按钮添加事件
         back.setOnClickListener(new ButtonBack());
         fm = getSupportFragmentManager();
         mecontext = getApplicationContext();
         rg = findViewById(R.id.information_rg_center);
         rg.setOnCheckedChangeListener(this);
+        //获取shardhelper文件
+        sh = new SharedHelper(mecontext);
+        Map<String, String> map = sh.getData();
+        user = map.get("name");
+        ljtext = map.get("ljtext");
         //获取第一个单选按钮
         rb = findViewById(R.id.information_rb_yipandian);
         rb.setChecked(true);
@@ -94,23 +125,28 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         //获取已盘点数量
         yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
         yipand.setText("已盘点：" + yipandnum);
+        //获取总数量
+        String totalnum = assetInformationDao.getDataCount(checkbean.getCode(),db)+"";
+        jdt.setText(yipandnum+"/"+totalnum);
         //盘点按钮添加点击事件
         pand.setOnClickListener(new pandButton());
         //刷新按钮添加点击事件
-        refresh.setOnClickListener(new refreshButton());
+        //refresh.setOnClickListener(new refreshButton());
         //下载按钮添加事件
         download.setOnClickListener(new downloadButton());
-        if (Integer.parseInt(yipandnum)>0||Integer.parseInt(wpandnum)>0) {
+        if (Integer.parseInt(yipandnum) > 0 || Integer.parseInt(wpandnum) > 0) {
             download.setText("删除资料");
         } else {
             download.setText("下载资料");
         }
+        //上传资料按钮添加事件
+        up.setOnClickListener(new upButton());
     }
 
     public void bindview() {
         texthead = findViewById(R.id.information_head);
         back = findViewById(R.id.information_bakc);
-        refresh = findViewById(R.id.information_refresh);
+        //refresh = findViewById(R.id.information_refresh);
         download = findViewById(R.id.information_button_download);
         pand = findViewById(R.id.information_button_scan);
         //endpand = findViewById(R.id.information_button_endcheck);
@@ -121,6 +157,15 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         pdsj = findViewById(R.id.information_text_pdsj);
         yipand = findViewById(R.id.information_rb_yipandian);
         weipand = findViewById(R.id.information_rg_weipandian);
+        information_imageview = findViewById(R.id.information_loading);
+        ad = (AnimationDrawable) information_imageview.getDrawable();
+        information_imageview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ad.start();
+            }
+        },100);
+        information_imageview.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -160,6 +205,9 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         @Override
         public void onClick(View v) {
             Intent it = new Intent(PdInformationActivity.this, InformationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("status","消息");
+            it.putExtras(bundle);
             startActivity(it);
         }
     }
@@ -176,15 +224,25 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         public void onClick(View v) {
             String tag = (String) download.getText();
             if ("下载资料".equals(tag)) {
-                WebService webService = new WebService();
-                message = webService.getAssetByWebservice(mecontext, checkbean.getCode());
-                if (message.getStatus() == 0) {
-                    Toast.makeText(mecontext, message.getMessage(), Toast.LENGTH_SHORT).show();
+                information_imageview.setVisibility(View.VISIBLE);
+                //判断数据是否已下载
+                SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+                AssetInformationDao assetInformationDao = new AssetInformationDao();
+                int num1 = assetInformationDao.getDataCount(checkbean.getCode(), db);
+                if (num1 > 0) {
+                    information_imageview.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mecontext, "资料已下载！", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mecontext, "开始下载资料", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mecontext, message.getMessage(), Toast.LENGTH_SHORT).show();
-                    download.setText("删除资料");
-                    refreshView();
+                    sh = new SharedHelper(mecontext);
+                    final Map<String, String> map = sh.getData();
+                    final AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+                        @Override
+                        protected String doInBackground(Void... voids) {
+                            assetDown(checkbean.getCode(), map.get("ljtext"));
+                            return null;
+                        }
+                    };
+                    task.execute();
                 }
             } else {
                 //删除资料
@@ -211,7 +269,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
             AssetInformationDao assetInformationDao = new AssetInformationDao();
             SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
             wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
-            if(Integer.parseInt(wpandnum)>0) {
+            if (Integer.parseInt(wpandnum) > 0) {
                 Intent it = new Intent(PdInformationActivity.this, CaptureActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("code", checkbean.getCode());
@@ -219,12 +277,50 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                 bundle.putString("fqsj", checkbean.getFqsj());
                 bundle.putString("pdlx", checkbean.getPdlx());
                 bundle.putString("pdsj", checkbean.getPdsj());
+                bundle.putString("jdt",jdt.getText().toString());
                 bundle.putString("status", "pand");
                 it.putExtras(bundle);
                 startActivity(it);
-            }else{
+            } else {
                 pand.setTextColor(Color.parseColor("#8b8787"));
-                Toast.makeText(mecontext,"资产已盘点完!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mecontext, "资产已盘点完!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //上传资料按钮添加事件
+    class upButton implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            AssetInformationDao assetInformationDao = new AssetInformationDao();
+            SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+            wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+            if (Integer.parseInt(wpandnum) > 0) {
+                Toast.makeText(mecontext, "还有未盘点完的资产!", Toast.LENGTH_SHORT).show();
+            } else {
+                information_imageview.setVisibility(View.VISIBLE);
+                //获取数据，盘点信息存入历史记录表中
+                CheckInformationDao checkInformationDao = new CheckInformationDao();
+                checkbean.setPdr(user);
+                //获取当前时间
+                Date data = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String currentdata = sdf.format(data);
+                checkbean.setDeffind1(currentdata);
+                checkInformationDao.saveCheckInformation(checkbean, db);
+                //上传数据
+                AssetInformationDao assetInformationDao1 = new AssetInformationDao();
+                 db = GetDbUtil.getDb(mecontext,5,"my.db");
+                 final Map<String,String> map = sh.getData();
+                final String json = assetInformationDao1.upAsset(checkbean.getCode(),db);
+                final AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+                    @Override
+                    protected String doInBackground(Void... voids) {
+                        assetUp(json,map.get("ljtext"));
+                        return null;
+                    }
+                };
+                task.execute();
             }
         }
     }
@@ -242,17 +338,18 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
         rb = findViewById(R.id.information_rb_yipandian);
         rb1 = findViewById(R.id.information_rg_weipandian);
-        wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
-        weipand.setText("未盘点：" + wpandnum);
-        rb1.setChecked(true);
         //获取已盘点数量
         yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
         yipand.setText("已盘点：" + yipandnum);
         rb.setChecked(true);
-        if(Integer.parseInt(wpandnum)==0){
-            pand.setTextColor(Color.parseColor("#8b8787"));
-        }
+        wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+        weipand.setText("未盘点：" + wpandnum);
+        rb1.setChecked(true);
+        //获取总数量
+        String tatolnum = assetInformationDao.getDataCount(checkbean.getCode(),db)+"";
+        jdt.setText(yipandnum+"/"+tatolnum);
     }
+
     //弹出框
     public void showDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -262,4 +359,117 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    //从服务器获取数据
+    public void assetDown(String pandcode, String url) {
+        //定义获取手机信息的SoapAction与命名空间,作为常量
+        String namespace = "webservices.blog.weaver.com.cn/";
+        //盘点相关信息
+        String pand_methodname = "findCptcapitalBypdmark";
+        String pand_url = url + "//services/GetInventoryDataService";
+        //指定webservice的命名空间和调用方法
+        SoapObject soapObject = new SoapObject(namespace, pand_methodname);
+        //设置需要传入的参数
+        soapObject.addProperty("pandcode", pandcode);
+        //生成调用webservice方法的soap请求信息，并指定soap版本
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.bodyOut = soapObject;
+        //设置是否调用的是dotnet开发的webservice
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(soapObject);
+        //获取网络链接
+        HttpTransportSE transport = new HttpTransportSE(pand_url);
+        try {
+            //调用webservice
+            transport.call(namespace, envelope);
+            //获取返回的数据
+            SoapObject object = (SoapObject) envelope.bodyIn;
+            //获取返回结果
+            assetdown_result = object.getProperty(0).toString();
+            assetdown_status = "1";
+        } catch (HttpResponseException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        handler.sendEmptyMessage(0x001);
+    }
+
+    //数据上传到服务器
+    private void assetUp(String assetJson,String url){
+        //定义获取手机信息的SoapAction与命名空间,作为常量
+        String namespace = "webservices.blog.weaver.com.cn/";
+        //盘点相关信息
+        String pand_methodname = "backdatajson";
+        String pand_url = url + "//services/GetInventoryDataService";
+        //指定webservice的命名空间和调用方法
+        SoapObject soapObject = new SoapObject(namespace, pand_methodname);
+        //设置需要传入的参数
+        soapObject.addProperty("assetjson", assetJson);
+        //生成调用webservice方法的soap请求信息，并指定soap版本
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.bodyOut = soapObject;
+        //设置是否调用的是dotnet开发的webservice
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(soapObject);
+        //获取网络链接
+        HttpTransportSE transport = new HttpTransportSE(pand_url);
+        try {
+            //调用webservice
+            transport.call(namespace, envelope);
+            //获取返回的数据
+            SoapObject object = (SoapObject) envelope.bodyIn;
+            //获取返回结果
+            upresult = object.getProperty(0).toString();
+        } catch (HttpResponseException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        handler.sendEmptyMessage(0x002);
+    }
+    private Handler handler = new Handler() {
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case 0x001:
+                    if (Integer.parseInt(assetdown_status) == 1) {
+                        //json数据转换
+                        AssetJson assetJson1 = new AssetJson();
+                        List<AssetInformationBean> assetlist = assetJson1.getAssetByJson(assetdown_result, checkbean.getCode(), "0");
+                        int num = 0;
+                        for (int i = 0; i < assetlist.size(); i++) {
+                            //数据存入本地数据库中
+                            SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
+                            AssetInformationDao assetInformationDao = new AssetInformationDao();
+                            ReturnMessage message1 = assetInformationDao.saveAssetInformation(assetlist.get(i), db);
+                            num++;
+                        }
+                        if (assetlist.size() == num) {
+                            information_imageview.setVisibility(View.INVISIBLE);
+                            Toast.makeText(mecontext, "资料下载完成！", Toast.LENGTH_SHORT).show();
+                            refreshView();
+                            download.setText("删除资料");
+                        }
+                    }
+                    if (Integer.parseInt(assetdown_status) == 0) {
+                        information_imageview.setVisibility(View.INVISIBLE);
+                        Toast.makeText(mecontext, "获取数据失败", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 0x002:
+                    if(Integer.parseInt(upresult)==1){
+                        information_imageview.setVisibility(View.INVISIBLE);
+                        Toast.makeText(mecontext,"数据上传成功！",Toast.LENGTH_SHORT).show();
+                    }else {
+                        information_imageview.setVisibility(View.INVISIBLE);
+                        Toast.makeText(mecontext,"数据上传失败！",Toast.LENGTH_SHORT).show();
+                    }
+                   break;
+            }
+        }
+    };
 }

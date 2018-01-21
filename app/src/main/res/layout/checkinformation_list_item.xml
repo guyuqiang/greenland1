@@ -8,10 +8,9 @@
 
     <TextView
         android:id="@+id/checkphoto"
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@mipmap/ic_launcher_round"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@mipmap/xiaoxi_check"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="5dp"
@@ -22,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
@@ -87,21 +86,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/colorBlack"
-                android:text="" />
+                android:text="抽盘" />
 
             <TextView
                 android:id="@+id/xiaoxi_jdt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="进度条" />
+                android:background="@drawable/shape_jdt"
+                android:gravity="center"
+                android:layout_marginRight="4dp"
+                android:text="36/100" />
 
             <TextView
                 android:id="@+id/xiaoxi_pdsj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="2017-12-21--2017-12-31" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

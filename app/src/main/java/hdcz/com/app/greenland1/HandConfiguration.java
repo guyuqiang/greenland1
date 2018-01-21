@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.zxing.client.android.CaptureActivity;
+
 import java.util.Map;
 
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
@@ -47,8 +49,11 @@ public class HandConfiguration extends AppCompatActivity {
     class Scanbutton implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            Intent it = new Intent(HandConfiguration.this,ScanConfiguration.class);
-            startActivity(it);
+            Intent it1 = new Intent(HandConfiguration.this,CaptureActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("status","scan");
+            it1.putExtras(bundle);
+            startActivity(it1);
         }
     }
     @Override

@@ -6,6 +6,7 @@
 <ListView
     android:id="@+id/listview_assetinformation"
     android:layout_width="match_parent"
+    android:divider="@color/colorWhite"
     android:layout_height="match_parent">
 </ListView>
 </LinearLayout>

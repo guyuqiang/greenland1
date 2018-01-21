@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class ScanConfiguration extends AppCompatActivity {
     class SaveEditButton implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            ljtext = findViewById(R.id.scan_ljtext);
+            ljtext = findViewById(R.id.scanconfigur_scan_ljtext);
             ljtext1 = ljtext.getText().toString();
             Intent it = new Intent(ScanConfiguration.this,MainActivity.class);
             it.putExtra("ljtext",ljtext1);
@@ -54,8 +55,9 @@ public class ScanConfiguration extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Map<String,String> map = sh.getData();
-        ljtext = findViewById(R.id.scan_ljtext);
-        ljtext.setText(map.get("ljtext"));
+        Intent it = getIntent();
+        String url = it.getStringExtra("url");
+        ljtext = findViewById(R.id.scanconfigur_scan_ljtext);
+        ljtext.setText(url);
     }
 }

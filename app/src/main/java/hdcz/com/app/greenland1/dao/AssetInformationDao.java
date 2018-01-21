@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
 import java.io.File;
@@ -37,6 +38,33 @@ public class AssetInformationDao {
         List<AssetInformationBean> assetlist = new ArrayList<AssetInformationBean>();
         String sql = "select * from hdcz_assetpand where asset_deffind1 = ? and asset_pandstatus = ?";
         Cursor cursor = db.rawQuery(sql,new String[]{pdcode,pdstatus});
+        while (cursor.moveToNext()){
+            AssetInformationBean ab = new AssetInformationBean();
+            ab.setAsset_code(cursor.getString(cursor.getColumnIndex("asset_code")));
+            ab.setAsset_name(cursor.getString(cursor.getColumnIndex("asset_name")));
+            ab.setAsset_wpdphoto(cursor.getString(cursor.getColumnIndex("asset_wpdphoto")));
+            ab.setAsset_pdphoto(cursor.getBlob(cursor.getColumnIndex("asset_pdphoto")));
+            ab.setAsset_usename(cursor.getString(cursor.getColumnIndex("asset_usename")));
+            ab.setAsset_type(cursor.getString(cursor.getColumnIndex("asset_type")));
+            ab.setAsset_spex(cursor.getString(cursor.getColumnIndex("asset_spex")));
+            ab.setAsset_unit(cursor.getString(cursor.getColumnIndex("asset_unit")));
+            ab.setAsset_belongdepart(cursor.getString(cursor.getColumnIndex("asset_bedepart")));
+            ab.setAsset_uselocation(cursor.getString(cursor.getColumnIndex("asset_uselocation")));
+            ab.setAsset_savelocation(cursor.getString(cursor.getColumnIndex("asset_savelocation")));
+            ab.setAsset_status(cursor.getString(cursor.getColumnIndex("asset_status")));
+            ab.setAsset_pandstatus(cursor.getString(cursor.getColumnIndex("asset_pandstatus")));
+            ab.setAsset_deffind1(cursor.getString(cursor.getColumnIndex("asset_deffind1")));
+            ab.setAsset_deffind2(cursor.getString(cursor.getColumnIndex("asset_deffind2")));
+            assetlist.add(ab);
+        }
+        cursor.close();
+        return assetlist;
+    }
+    //根据盘点编码查询所有数据
+    public List<AssetInformationBean> getAssetByPdcode(String pdcode,SQLiteDatabase db){
+        List<AssetInformationBean> assetlist = new ArrayList<AssetInformationBean>();
+        String sql = "select * from hdcz_assetpand where asset_deffind1 = ?";
+        Cursor cursor = db.rawQuery(sql,new String[]{pdcode});
         while (cursor.moveToNext()){
             AssetInformationBean ab = new AssetInformationBean();
             ab.setAsset_code(cursor.getString(cursor.getColumnIndex("asset_code")));
@@ -109,5 +137,22 @@ public class AssetInformationDao {
     public void deletAssetFromYpand(String pandcode,String assetcode,SQLiteDatabase db){
         String sql ="update hdcz_assetpand set asset_pandstatus = ? ,asset_status=?,asset_deffind2=?  where asset_deffind1 =? and asset_code = ?";
         db.execSQL(sql,new String[]{"0","null","null",pandcode,assetcode});
+    }
+    //根据盘点编码查询所有已盘点的数据上传到服务器
+    public String upAsset(String pandcode,SQLiteDatabase db){
+        String upasset = "";
+        String sql = "select * from hdcz_assetpand where asset_deffind1 = ?";
+        Cursor cursor = db.rawQuery(sql,new String [] {pandcode});
+        List<AssetInformationBean> list = new ArrayList<>();
+        while (cursor.moveToNext()){
+            AssetInformationBean assetInformationBean = new AssetInformationBean();
+            assetInformationBean.setAsset_code(cursor.getString(cursor.getColumnIndex("asset_code")));
+            assetInformationBean.setAsset_status(cursor.getString(cursor.getColumnIndex("asset_status")));
+            //assetInformationBean.setAsset_pdphoto(cursor.getBlob(cursor.getColumnIndex("asset_pdphoto")));
+            assetInformationBean.setAsset_deffind1(cursor.getString(cursor.getColumnIndex("asset_deffind1")));
+            list.add(assetInformationBean);
+        }
+        upasset = new Gson().toJson(list);
+        return  upasset;
     }
 }

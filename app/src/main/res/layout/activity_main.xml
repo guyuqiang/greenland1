@@ -31,10 +31,11 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/shape"
+            android:background="@mipmap/log_user"
             android:ems="10"
             android:hint="输入用户名"
             android:inputType="text"
+            android:paddingLeft="43dp"
             android:text="" />
 
         <EditText
@@ -44,18 +45,18 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/shape"
+            android:background="@mipmap/log_password"
             android:ems="10"
             android:hint="输入密码"
             android:inputType="textPassword"
+            android:paddingLeft="43dp"
             android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="85dp"
-            android:layout_marginRight="70dp"
             android:layout_marginTop="15dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioGroup
@@ -110,7 +111,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_empty"
                 android:gravity="right"
-                android:text="⚃扫描配置 |" />
+                android:text="扫描配置 |" />
 
             <Button
                 android:id="@+id/shoudong"
@@ -121,6 +122,15 @@
                 android:gravity="left"
                 android:text="手动配置" />
         </LinearLayout>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/main_loading"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:src="@drawable/anim_pgbar" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -23,14 +23,16 @@
         <Button
             android:id="@+id/information_bakc"
             style="@style/back_button" />
-        <Button
-            android:id="@+id/information_refresh"
-            style="@style/refresh_button" />
+        <!--<Button-->
+            <!--android:id="@+id/information_refresh"-->
+            <!--style="@style/refresh_button" />-->
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/information_checkinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ly_top_bar"
         android:orientation="horizontal">
 
         <Button
@@ -59,17 +61,21 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/information_xiahuaxian1"
         android:layout_width="match_parent"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_height="8dp"
         android:background="@color/colorgray"
+        android:layout_below="@id/information_checkinfo"
         android:text="" />
 
     <LinearLayout
+        android:id="@+id/information_pandstatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="13dp"
+        android:layout_below="@id/information_xiahuaxian1"
         android:orientation="horizontal">
 
         <TextView
@@ -108,11 +114,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/information_checkinfo1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="13dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_below="@id/information_pandstatus"
         android:orientation="horizontal">
 
         <TextView
@@ -127,17 +135,18 @@
             android:id="@+id/information_text_jdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:text="进度条" />
+            android:layout_weight="2"
+            android:background="@drawable/shape_jdt"
+            android:gravity="center"
+            android:text="" />
 
         <TextView
             android:id="@+id/information_text_pdsj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="26dp"
+            android:layout_weight="3"
             android:textSize="18dp"
+            android:gravity="center"
             android:text="2017-12-30--2017-12-31" />
     </LinearLayout>
     <RadioGroup
@@ -146,6 +155,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
+        android:layout_below="@id/information_checkinfo1"
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/information_rb_yipandian"
@@ -164,12 +174,24 @@
         android:layout_marginBottom="3dp"
         android:layout_height="8dp"
         android:background="@color/colorgray"
+        android:layout_below="@id/information_rg_center"
         android:text="" />
 
     <FrameLayout
         android:id="@+id/information_listview_content"
         android:background="@color/colorWhite"
         android:layout_width="match_parent"
+        android:layout_below="@id/information_xiahuaxian"
         android:layout_height="match_parent">
     </FrameLayout>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/information_loading"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:src="@drawable/anim_pgbar" />
+    </LinearLayout>
+</RelativeLayout>

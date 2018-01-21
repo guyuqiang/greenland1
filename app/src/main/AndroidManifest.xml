@@ -27,9 +27,10 @@
         </activity>
         <activity android:name=".ScanConfiguration">
             <intent-filter>
-                <action android:name="android.intent.action.SCANCONFIGURATION" />
+                <action android:name="SCANCONFIGURATION" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity android:name=".InformationActivity">
@@ -37,6 +38,7 @@
                 <action android:name="android.intent.action.INFORMATIONACTIVITY" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity android:name=".PdInformationActivity">
@@ -44,6 +46,7 @@
                 <action android:name="PDINFORMATIONACTIVITY" />
 
                 <category android:name="PDINFORMATIONACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity android:name=".AssetPandActivity">
@@ -58,6 +61,12 @@
                 <action android:name="android.intent.action.AssetPandInformationActivity" />
 
                 <category android:name="android.intent.category.AssetPandInformationActivity" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HistoryAssetInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.HistoryAssetInfoActivity"/>
+                <category android:name="android.intent.category.HistoryAssetInfoActivity"/>
             </intent-filter>
         </activity>
     </application>

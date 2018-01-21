@@ -25,7 +25,32 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             " asset_pandstatus TEXT(64)," +
             " asset_deffind1 TEXT(64)," +
             " asset_deffind2 TEXT(64))";
-
+     private static final String creatchecktable = "CREATE TABLE hdcz_checkinformation (id INTEGER PRIMARY KEY AUTOINCREMENT,pand_code TEXT(64)," +
+             "pand_fqr TEXT(64)," +
+             "pand_fqsj TEXT(64)," +
+             "pand_lx TEXT(64)," +
+             "pand_pdsj TEXT(64)," +
+             "pand_panduser TEXT(64)," +
+             "pand_deffind1 TEXT(64)," +
+             "pand_deffind2 TEXT(64))";
+     private  static  final String serachAssettabale = "CREATE TABLE hdcz_serachasset (id INTEGER PRIMARY KEY AUTOINCREMENT,asset_code TEXT(64)," +
+             " asset_name TEXT(64)," +
+             "asset_wpdphoto BLOB," +
+             "asset_pdphoto BLOB," +
+             " asset_usename TEXT(64)," +
+             " asset_type TEXT(64)," +
+             "asset_spex TEXT(64)," +
+             " asset_unit TEXT(64)," +
+             " asset_bedepart TEXT(64)," +
+             "asset_uselocation TEXT(128)," +
+             "asset_savelocation TEXT(128)," +
+             "asset_status TEXT(64)," +
+             " asset_pandstatus TEXT(64)," +
+             " asset_deffind1 TEXT(64)," +
+             "asset_deffind2 TEXT(64)," +
+             "asset_deffind3 TEXT(64)," +
+             "asset_deffind4 TEXT(64)," +
+             "asset_deffind5 TEXT(64))";
     public DBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, null, version);
     }
@@ -34,12 +59,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createperson);
         db.execSQL(createassetpand);
+        db.execSQL(creatchecktable);
+        db.execSQL(serachAssettabale);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists person");
         db.execSQL("drop table if exists hdcz_assetpand");
+        db.execSQL("drop table if exists hdcz_checkinformation");
+        db.execSQL("drop table if exists hdcz_serachasset");
         onCreate(db);
     }
 }

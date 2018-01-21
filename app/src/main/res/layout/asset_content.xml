@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/text_asset"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ly_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/serachasset_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="资产查询"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/serachasset_download"
+            style="@style/download_button" />
+
+        <Button
+            android:id="@+id/serachasset_delete"
+            style="@style/delete_button" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/seracheasset_sousuo"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorgray"
         android:gravity="center"
-        android:textSize="40dp"
-        android:text="@string/asset" />
-</LinearLayout>
+        android:layout_marginTop="37dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/serachasset_scanbutton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/serach_scan"
+            android:text="" />
+
+        <Button
+            android:id="@+id/serachasset_searchbutton"
+            android:layout_width="52dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/shape_serach"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/serachasset_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shape"
+            android:hint="编号、名称、所属部门、使用人"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/serachasset_ly_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/seracheasset_sousuo"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/serachasset_loading"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:src="@drawable/anim_pgbar" />
+    </LinearLayout>
+</RelativeLayout>

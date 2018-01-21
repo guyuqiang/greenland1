@@ -4,11 +4,27 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/text_pandian"
+    <RelativeLayout
+        android:id="@+id/ly_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="40dp"
-        android:text="@string/pandian" />
+        android:layout_height="37dp"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/pand_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="盘点记录"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/pandhistory_listview"
+        android:layout_width="match_parent"
+        android:dividerHeight="1dp"
+        android:divider="@color/colorPrimaryDark"
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

@@ -77,6 +77,13 @@ public class AssetPandActivity extends AppCompatActivity {
         assetpand_fqr.setText(checkInformationBean.getFqr());
         assetpand_fqsj.setText(checkInformationBean.getFqsj());
         assetpand_pdsj.setText(checkInformationBean.getPdsj());
+        //获取总数量
+        SQLiteDatabase db = GetDbUtil.getDb(mcontext,5,"my.db");
+        AssetInformationDao assetInformationDao = new AssetInformationDao();
+        String totalnum = assetInformationDao.getDataCount(checkInformationBean.getCode(),db)+"";
+        //获取已盘点数量
+        String yipandnum = assetInformationDao.getDataCount(checkInformationBean.getCode(),"1",db);
+        assetpand_jdt.setText(yipandnum+"/"+totalnum);
         assetpand_assetname.setText(assetInformationBean.getAsset_name());
         assetpand_assetcode.setText(assetInformationBean.getAsset_code());
         assetpand_assetuser.setText(assetInformationBean.getAsset_usename());

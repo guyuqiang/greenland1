@@ -2,7 +2,7 @@
     <string name="app_name">绿地资产盘点</string>
     <string name="xiaoxi">消息</string>
     <string name="pandian">盘点</string>
-    <string name="asset">资产</string>
+    <string name="asset">查询</string>
     <string name="code">编号:</string>
     <string name="fqr">发起人:</string>
     <string name="fqsj">发起时间:</string>

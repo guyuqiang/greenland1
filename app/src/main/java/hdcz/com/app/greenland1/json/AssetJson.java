@@ -1,12 +1,14 @@
 package hdcz.com.app.greenland1.json;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
+import hdcz.com.app.greenland1.bean.CheckInformationBean;
 
 /**
  * Created by guyuqiang on 2018/1/4.14:13
@@ -40,5 +42,24 @@ public class AssetJson {
             e.printStackTrace();
     }
         return assetlist;
+    }
+    public List<CheckInformationBean> getCheckinformationByJson(String json){
+        List<CheckInformationBean> list = new ArrayList<CheckInformationBean>();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i <jsonArray.length() ; i++) {
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                CheckInformationBean checkInformationBean = new CheckInformationBean();
+                checkInformationBean.setCode(jsonObject.getString("盘点编码"));
+                checkInformationBean.setPdlx(jsonObject.getString("盘点类型"));
+                checkInformationBean.setFqr(jsonObject.getString("发起人"));
+                checkInformationBean.setFqsj(jsonObject.getString("申请时间"));
+                checkInformationBean.setPdsj(jsonObject.getString("盘点时间"));
+                list.add(checkInformationBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

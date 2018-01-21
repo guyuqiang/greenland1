@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.zxing.client.android.bean.CheckInformationBean;
 import com.google.zxing.client.android.db.DBOpenHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -52,6 +54,11 @@ public class PandAssetActivity extends Activity {
     private String assetname;
     private ImageView image_show1;
     private Bitmap bitmap;
+    private String fqr;
+    private String fqsj;
+    private String pdlx;
+    private String pdsj;
+    private String jdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +68,11 @@ public class PandAssetActivity extends Activity {
         Intent it1 = getIntent();
         Bundle bundle = it1.getExtras();
         pandcode = bundle.getString("code");
-        String fqr = bundle.getString("fqr");
-        String fqsj = bundle.getString("fqsj");
-        String pdlx = bundle.getString("pdlx");
-        String pdsj = bundle.getString("pdsj");
+         fqr = bundle.getString("fqr");
+         fqsj = bundle.getString("fqsj");
+         pdlx = bundle.getString("pdlx");
+         pdsj = bundle.getString("pdsj");
+         jdt = bundle.getString("jdt");
         assetname = bundle.getString("assetname");
         assetcode = bundle.getString("assetcode");
         String asset_usename = bundle.getString("asset_usename");
@@ -78,6 +86,7 @@ public class PandAssetActivity extends Activity {
         assetpand_fqr.setText(fqr);
         assetpand_fqsj.setText(fqsj);
         assetpand_pdsj.setText(pdsj);
+        assetpand_jdt.setText(jdt);
         assetpand_assetname.setText(assetname);
         assetpand_assetcode.setText(assetcode);
         assetpand_assetuser.setText(asset_usename);
@@ -122,7 +131,17 @@ public class PandAssetActivity extends Activity {
     class saveButton implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            CheckInformationBean checkInformationBean = new CheckInformationBean();
+            checkInformationBean.setCode(pandcode);
+            checkInformationBean.setFqr(fqr);
+            checkInformationBean.setFqsj(fqsj);
+            checkInformationBean.setPdlx(pdlx);
+            checkInformationBean.setPdsj(pdsj);
+            String json = new Gson().toJson(checkInformationBean);
             if ("".equals(assetname) || "null".equals(assetname) || assetname == null) {
+                Intent it = new Intent("PDINFORMATIONACTIVITY");
+                it.putExtra("pdinformation",json);
+                startActivity(it);
                 finish();
             } else {
                 //获取盘点编码pandcode
@@ -164,7 +183,7 @@ public class PandAssetActivity extends Activity {
                 }
                 //获取链接
                 try {
-                    DBOpenHelper dbOpenHelper = new DBOpenHelper(getApplicationContext(), "my.db", null, 2);
+                    DBOpenHelper dbOpenHelper = new DBOpenHelper(getApplicationContext(), "my.db", null, 5);
                     SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
                     //根据盘点编码、资产编码修改此条资产的资产状态，盘点状态，盘点时间
 //                    String sql = "update hdcz_assetpand set asset_pandstatus = ? ,asset_status=?,asset_deffind2=?  where asset_deffind1 =? and asset_code = ?";
@@ -178,6 +197,9 @@ public class PandAssetActivity extends Activity {
                     String where = "asset_deffind1 = ? and asset_code = ?";
                     String[] strings = {pandcode, assetcode};
                     db.update(tablename, contentValues, where, strings);
+                    Intent it = new Intent("PDINFORMATIONACTIVITY");
+                    it.putExtra("pdinformation",json);
+                    startActivity(it);
                     finish();
                 } catch (Exception e) {
                     Log.e("链接异常", e.toString());

@@ -24,13 +24,16 @@ public class WebServiceDao {
     String log_methodname = "checkUserBynameAndPassword";
     String log_logurl = "http://125.69.90.196:10089//services/GetInventoryDataService";
     String log_soapAction = "webservices.blog.weaver.com.cn/checkUserBynameAndPassword";
-    public String userLog(String name,String password,String url){
+    //盘点相关信息
+    String pand_methodname = "findpdBypdr";
+    String pand_soapAction = "webservices.blog.weaver.com.cn/findpdBypdr";
+    public String pandInformation(String name,String url){
         String result = "";
+        String pand_url = url+"//services/GetInventoryDataService";
         //指定webservice的命名空间和调用方法
-        SoapObject soapObject = new SoapObject(namespace,log_methodname);
+        SoapObject soapObject = new SoapObject(namespace,pand_methodname);
         //设置需要传入的参数
         soapObject.addProperty("username",name);
-        soapObject.addProperty("password",password);
         //生成调用webservice方法的soap请求信息，并指定soap版本
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.bodyOut = soapObject;
@@ -38,22 +41,24 @@ public class WebServiceDao {
         envelope.dotNet = true;
         envelope.setOutputSoapObject(soapObject);
         //获取网络链接
-        HttpTransportSE transport = new HttpTransportSE(log_logurl);
+        HttpTransportSE transport = new HttpTransportSE(pand_url);
         try {
             //调用webservice
             transport.call(namespace,envelope);
+            //获取返回的数据
+            SoapObject object = (SoapObject) envelope.bodyIn;
+            //获取返回结果
+            result = object.getProperty(0).toString();
         } catch (HttpResponseException e) {
             e.printStackTrace();
+            result = "2";
         } catch (XmlPullParserException e) {
             e.printStackTrace();
+            result = "2";
         } catch (IOException e) {
             e.printStackTrace();
+            result = "2";
         }
-        //获取返回的数据
-        SoapObject object = (SoapObject) envelope.bodyIn;
-        //获取返回结果
-        result = object.getProperty(0).toString();
-        Log.e("-----------++++++++",result);
         return result;
     }
 }

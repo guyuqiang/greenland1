@@ -3,6 +3,7 @@ package hdcz.com.app.greenland1;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,9 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.google.zxing.client.android.CaptureActivity;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -32,6 +36,7 @@ import hdcz.com.app.greenland1.dao.PersonDao;
 import hdcz.com.app.greenland1.db.DBOpenHelper;
 import hdcz.com.app.greenland1.md5.MD5;
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
+import hdcz.com.app.greenland1.util.GetDbUtil;
 import hdcz.com.app.greenland1.webservice.WebServiceDao;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private PersonDao personDao;
     private String lijtext;
     private String backresult="0";
+    private ImageView main_pgbar_imageview;
+    private AnimationDrawable ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +67,32 @@ public class MainActivity extends AppCompatActivity {
         Intent it = getIntent();
         lijtext = it.getStringExtra("ljtext");
         personDao = new PersonDao();
-        dbOpenHelper = new DBOpenHelper(context,"my.db",null,2);
-        dbOpenHelper.getWritableDatabase();
-        db = dbOpenHelper.getWritableDatabase();
+        db = GetDbUtil.getDb(mcontext,3,"my.db");
         sh = new SharedHelper(mcontext);
         Button hcbutton = findViewById(R.id.shoudong);
+        //手动配置按钮添加事件
         hcbutton.setOnClickListener(new HandConfigurationButton());
         Button scanbutton = findViewById(R.id.saomiao);
+        //扫描配置按钮添加事件
         scanbutton.setOnClickListener(new ScanConfigurationButton());
         Button savebutton = findViewById(R.id.savebutton);
+        //登陆按钮添加事件
         savebutton.setOnClickListener(new SaveButton());
+        //加载进度条imageview
+        main_pgbar_imageview = findViewById(R.id.main_loading);
+        ad =(AnimationDrawable) main_pgbar_imageview.getDrawable();
+        main_pgbar_imageview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ad.start();
+            }
+        },100);
+        main_pgbar_imageview.setVisibility(View.INVISIBLE);
     }
     class SaveButton implements View.OnClickListener{
         @Override
         public  void onClick(View v){
+            main_pgbar_imageview.setVisibility(View.VISIBLE);
             editname = findViewById(R.id.editUser);
             editpassword = findViewById(R.id.editPassword);
             name = editname.getText().toString();
@@ -90,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             sh.saveData(name,password,lijtext);
             RadioGroup radioGroup = findViewById(R.id.main_radiogroup);
             if("".equals(lijtext)||"null".equals(lijtext)||lijtext==null){
+                main_pgbar_imageview.setVisibility(View.INVISIBLE);
                 Toast.makeText(mcontext,"请点击底部的配置填写链接地址！",Toast.LENGTH_SHORT).show();
             }else {
                 for (int i = 0; i < radioGroup.getChildCount(); i++) {
@@ -112,9 +132,14 @@ public class MainActivity extends AppCompatActivity {
                             //从本地数据库中验证用户名和密码是否正确
                             person1 = personDao.checkPerson(name, password, db);
                             if ("null".equals(person1) || person1 == null) {
+                                main_pgbar_imageview.setVisibility(View.INVISIBLE);
                                 Toast.makeText(mcontext, "用户不存在！", Toast.LENGTH_SHORT).show();
                             } else {
                                 Intent it = new Intent(MainActivity.this, InformationActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("status","消息");
+                                it.putExtras(bundle);
+                                main_pgbar_imageview.setVisibility(View.INVISIBLE);
                                 startActivity(it);
                             }
                         }
@@ -133,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
     class ScanConfigurationButton implements View.OnClickListener{
         @Override
         public  void onClick(View v){
-            Intent it1 = new Intent(MainActivity.this,ScanConfiguration.class);
+            Intent it1 = new Intent(MainActivity.this,CaptureActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("status","scan");
+            it1.putExtras(bundle);
             startActivity(it1);
         }
     }
@@ -203,11 +231,17 @@ public class MainActivity extends AppCompatActivity {
                          personDao.updatePersonByName(name, password, db);
                      }
                      Intent it = new Intent(MainActivity.this, InformationActivity.class);
+                     Bundle bundle = new Bundle();
+                     bundle.putString("status","消息");
+                     it.putExtras(bundle);
+                     main_pgbar_imageview.setVisibility(View.INVISIBLE);
                      startActivity(it);
                  }else{
                      if(Integer.parseInt(backresult)==0) {
+                         main_pgbar_imageview.setVisibility(View.INVISIBLE);
                          Toast.makeText(mcontext, "用户名或者密码错误！", Toast.LENGTH_SHORT).show();
                      }else{
+                         main_pgbar_imageview.setVisibility(View.INVISIBLE);
                          Toast.makeText(mcontext,"链接地址不准确或服务器未开启",Toast.LENGTH_SHORT).show();
                      }
                  }

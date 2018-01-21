@@ -15,7 +15,10 @@ public class CheckInformationBean {
     private String pdsj;
     //盘点类型
     private String pdlx;
-
+    //盘点人
+    private String pdr;
+    private String deffind1;
+    private String deffind2;
     public CheckInformationBean() {
     }
 
@@ -58,6 +61,31 @@ public class CheckInformationBean {
     public void setPdlx(String pdlx) {
         this.pdlx = pdlx;
     }
+
+    public String getPdr() {
+        return pdr;
+    }
+
+    public void setPdr(String pdr) {
+        this.pdr = pdr;
+    }
+
+    public String getDeffind1() {
+        return deffind1;
+    }
+
+    public void setDeffind1(String deffind1) {
+        this.deffind1 = deffind1;
+    }
+
+    public String getDeffind2() {
+        return deffind2;
+    }
+
+    public void setDeffind2(String deffind2) {
+        this.deffind2 = deffind2;
+    }
+
     @Override
     public String toString() {
         return "CheckInformationBean{" +
@@ -66,6 +94,9 @@ public class CheckInformationBean {
                 ", fqsj='" + fqsj + '\'' +
                 ", pdsj='" + pdsj + '\'' +
                 ", pdlx='" + pdlx + '\'' +
+                ", pdr='" + pdr + '\'' +
+                ", deffind1='" + deffind1 + '\'' +
+                ", deffind2='" + deffind2 + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,7 @@
 package hdcz.com.app.greenland1.bean;
 
+import java.util.Arrays;
+
 /**
  * Created by guyuqiang on 2018/1/3.11:40
  */
@@ -35,10 +37,16 @@ public class AssetInformationBean {
     private String asset_pandstatus;
     //盘点编码
     private String asset_deffind1;
-    //默认字段2
+    //盘点时间
     private String asset_deffind2;
+    //默认字段3
+    private String asset_deffind3;
+    //默认字段4
+    private String asset_deffind4;
+    //默认字段5
+    private String asset_deffind5;
 
-    public AssetInformationBean(int id, String asset_code, String asset_name, String asset_wpdphoto, byte[] asset_pdphoto, String asset_usename, String asset_type, String asset_spex, String asset_unit, String asset_belongdepart, String asset_savelocation, String asset_uselocation, String asset_status, String asset_pandstatus, String asset_deffind1, String asset_deffind2) {
+    public AssetInformationBean(int id, String asset_code, String asset_name, String asset_wpdphoto, byte[] asset_pdphoto, String asset_usename, String asset_type, String asset_spex, String asset_unit, String asset_belongdepart, String asset_savelocation, String asset_uselocation, String asset_status, String asset_pandstatus, String asset_deffind1, String asset_deffind2, String asset_deffind3, String asset_deffind4, String asset_deffind5) {
         this.id = id;
         this.asset_code = asset_code;
         this.asset_name = asset_name;
@@ -55,6 +63,9 @@ public class AssetInformationBean {
         this.asset_pandstatus = asset_pandstatus;
         this.asset_deffind1 = asset_deffind1;
         this.asset_deffind2 = asset_deffind2;
+        this.asset_deffind3 = asset_deffind3;
+        this.asset_deffind4 = asset_deffind4;
+        this.asset_deffind5 = asset_deffind5;
     }
 
     public AssetInformationBean() {
@@ -188,6 +199,29 @@ public class AssetInformationBean {
         this.asset_deffind2 = asset_deffind2;
     }
 
+    public String getAsset_deffind3() {
+        return asset_deffind3;
+    }
+
+    public void setAsset_deffind3(String asset_deffind3) {
+        this.asset_deffind3 = asset_deffind3;
+    }
+
+    public String getAsset_deffind4() {
+        return asset_deffind4;
+    }
+
+    public void setAsset_deffind4(String asset_deffind4) {
+        this.asset_deffind4 = asset_deffind4;
+    }
+
+    public String getAsset_deffind5() {
+        return asset_deffind5;
+    }
+
+    public void setAsset_deffind5(String asset_deffind5) {
+        this.asset_deffind5 = asset_deffind5;
+    }
     @Override
     public String toString() {
         return "AssetInformationBean{" +
@@ -195,7 +229,7 @@ public class AssetInformationBean {
                 ", asset_code='" + asset_code + '\'' +
                 ", asset_name='" + asset_name + '\'' +
                 ", asset_wpdphoto='" + asset_wpdphoto + '\'' +
-                ", asset_pdphoto='" + asset_pdphoto + '\'' +
+                ", asset_pdphoto=" + Arrays.toString(asset_pdphoto) +
                 ", asset_usename='" + asset_usename + '\'' +
                 ", asset_type='" + asset_type + '\'' +
                 ", asset_spex='" + asset_spex + '\'' +
@@ -207,6 +241,9 @@ public class AssetInformationBean {
                 ", asset_pandstatus='" + asset_pandstatus + '\'' +
                 ", asset_deffind1='" + asset_deffind1 + '\'' +
                 ", asset_deffind2='" + asset_deffind2 + '\'' +
+                ", asset_deffind3='" + asset_deffind3 + '\'' +
+                ", asset_deffind4='" + asset_deffind4 + '\'' +
+                ", asset_deffind5='" + asset_deffind5 + '\'' +
                 '}';
     }
 }

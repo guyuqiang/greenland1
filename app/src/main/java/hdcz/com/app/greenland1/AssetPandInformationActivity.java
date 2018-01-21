@@ -70,6 +70,13 @@ public class AssetPandInformationActivity extends AppCompatActivity {
         assetpandinformation_fqr.setText(checkInformationBean.getFqr());
         assetpandinformation_fqsj.setText(checkInformationBean.getFqsj());
         assetpandinformation_pdsj.setText(checkInformationBean.getPdsj());
+        //获取总数量
+        SQLiteDatabase db = GetDbUtil.getDb(mcontext,5,"my.db");
+        AssetInformationDao assetInformationDao = new AssetInformationDao();
+        String totalnum = assetInformationDao.getDataCount(checkInformationBean.getCode(),db)+"";
+        //获取已盘点数量
+        String yipandnum = assetInformationDao.getDataCount(checkInformationBean.getCode(),"1",db);
+        assetpandinformation_jdt.setText(yipandnum+"/"+totalnum);
         assetpandinformation_assetname.setText(assetInformationBean.getAsset_name());
         assetpandinformation_assetcode.setText(assetInformationBean.getAsset_code());
         assetpandinformation_assetuser.setText(assetInformationBean.getAsset_usename());

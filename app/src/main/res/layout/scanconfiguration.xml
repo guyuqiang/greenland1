@@ -24,7 +24,7 @@
         app:srcCompat="@mipmap/icon_login_main" />
 
     <EditText
-        android:id="@+id/scan_ljtext"
+        android:id="@+id/scanconfigur_scan_ljtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
