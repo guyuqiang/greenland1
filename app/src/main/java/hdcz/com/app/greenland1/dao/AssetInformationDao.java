@@ -4,12 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/ly_top_bar"
         android:layout_width="match_parent"
@@ -38,13 +41,13 @@
         <Button
             android:id="@+id/information_button_download"
             style="@style/informaton_top_bar"
-            android:drawableTop="@mipmap/ic_launcher_round"
+            android:drawableTop="@mipmap/down2"
             android:text="@string/download" />
 
         <Button
             android:id="@+id/information_button_scan"
             style="@style/informaton_top_bar"
-            android:drawableTop="@mipmap/ic_launcher_round"
+            android:drawableTop="@mipmap/pand5"
             android:text="@string/pandian" />
 
         <!--<Button-->
@@ -56,7 +59,7 @@
         <Button
             android:id="@+id/information_button_up"
             style="@style/informaton_top_bar"
-            android:drawableTop="@mipmap/ic_launcher_round"
+            android:drawableTop="@mipmap/up4"
             android:text="@string/up" />
     </LinearLayout>
 
@@ -184,14 +187,16 @@
         android:layout_below="@id/information_xiahuaxian"
         android:layout_height="match_parent">
     </FrameLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/information_loading"
+            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:src="@drawable/anim_pgbar" />
     </LinearLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

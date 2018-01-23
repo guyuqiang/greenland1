@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.io.IOException;
 
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
 import hdcz.com.app.greenland1.bean.CheckInformationBean;

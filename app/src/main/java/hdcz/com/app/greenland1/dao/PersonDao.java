@@ -1,11 +1,9 @@
 package hdcz.com.app.greenland1.dao;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import hdcz.com.app.greenland1.bean.PersonBean;
-import hdcz.com.app.greenland1.db.DBOpenHelper;
 
 /**
  * Created by guyuqiang on 2017/12/29.15:36

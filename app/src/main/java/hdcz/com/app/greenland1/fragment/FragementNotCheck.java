@@ -19,7 +19,6 @@ import java.util.List;
 
 import hdcz.com.app.greenland1.AssetPandActivity;
 import hdcz.com.app.greenland1.R;
-import hdcz.com.app.greenland1.adapter.AssetInformationAdapter;
 import hdcz.com.app.greenland1.adapter.WpandAssetInformationAdapter;
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
 import hdcz.com.app.greenland1.bean.CheckInformationBean;

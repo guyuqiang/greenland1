@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +30,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import hdcz.com.app.greenland1.bean.PersonBean;
-import hdcz.com.app.greenland1.dao.LoginDao;
 import hdcz.com.app.greenland1.dao.PersonDao;
 import hdcz.com.app.greenland1.db.DBOpenHelper;
 import hdcz.com.app.greenland1.md5.MD5;

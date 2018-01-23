@@ -278,7 +278,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                 bundle.putString("pdlx", checkbean.getPdlx());
                 bundle.putString("pdsj", checkbean.getPdsj());
                 bundle.putString("jdt",jdt.getText().toString());
-                bundle.putString("status", "pand");
+                bundle.putString("status", "pand1");
                 it.putExtras(bundle);
                 startActivity(it);
             } else {

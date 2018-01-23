@@ -1,7 +1,6 @@
 package hdcz.com.app.greenland1.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;

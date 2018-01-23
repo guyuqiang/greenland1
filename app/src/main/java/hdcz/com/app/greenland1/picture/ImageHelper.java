@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
 
 /**
  * Created by guyuqiang on 2018/1/11.15:25

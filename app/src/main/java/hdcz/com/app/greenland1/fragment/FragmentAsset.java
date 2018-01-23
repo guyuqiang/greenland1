@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.zxing.client.android.CaptureActivity;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -37,7 +36,6 @@ import java.util.Map;
 
 import hdcz.com.app.greenland1.R;
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
-import hdcz.com.app.greenland1.bean.CheckInformationBean;
 import hdcz.com.app.greenland1.dao.HistoryAssetInfoDao;
 import hdcz.com.app.greenland1.json.AssetJson;
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;

@@ -5,30 +5,32 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:orientation="horizontal">-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="3dp"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginRight="3dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:orientation="vertical">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textColor="@color/colorBlack"
                     android:textSize="18dp"
                     android:text="资产名称：" />
@@ -41,26 +43,28 @@
                     android:textSize="18dp"
                     android:text="笔记本" />
 
-                <TextView
-                    android:id="@+id/assetinformation_text_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:text="终端盘点" />
+                <!--<TextView-->
+                    <!--android:id="@+id/assetinformation_text_status"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:textSize="18dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="终端盘点" />-->
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textColor="@color/colorBlack"
                     android:textSize="18dp"
                     android:text="资产编码：" />
@@ -72,16 +76,16 @@
                     android:textSize="18dp"
                     android:text="121212121212" />
             </LinearLayout>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/assetinformation_image"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="3dp"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        <!--</LinearLayout>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/assetinformation_image"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:layout_marginBottom="3dp"-->
+            <!--android:layout_height="match_parent" />-->
+    <!--</LinearLayout>-->
     <TextView
         android:layout_width="match_parent"
         android:background="@color/colorgray"
@@ -91,31 +95,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:text="使用人：" />
 
         <TextView
             android:id="@+id/assetinformation_text_usename"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:textSize="18dp"
             android:text="李玲" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:gravity="right"
@@ -137,31 +139,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:text="规格型号：" />
 
         <TextView
             android:id="@+id/assetinformation_text_assetspex"
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:textSize="18dp"
             android:text="戴尔" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:gravity="right"
@@ -183,31 +183,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:text="所属部门：" />
 
         <TextView
             android:id="@+id/assetinformation_text_belongdepartment"
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textSize="18dp"
             android:text="财务部" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:gravity="right"
@@ -229,15 +227,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorBlack"
             android:textSize="18dp"
             android:text="使用地点：" />

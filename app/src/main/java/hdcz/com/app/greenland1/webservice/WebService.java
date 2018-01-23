@@ -2,29 +2,13 @@ package hdcz.com.app.greenland1.webservice;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpResponseException;
-import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import hdcz.com.app.greenland1.R;
+
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
 import hdcz.com.app.greenland1.dao.AssetInformationDao;
-import hdcz.com.app.greenland1.fragment.FragementXiaoXi;
 import hdcz.com.app.greenland1.json.AssetJson;
-import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
 import hdcz.com.app.greenland1.util.GetDbUtil;
 import hdcz.com.app.greenland1.util.ReturnMessage;
 

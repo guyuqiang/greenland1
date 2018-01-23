@@ -16,7 +16,6 @@ import java.util.List;
 
 import hdcz.com.app.greenland1.R;
 import hdcz.com.app.greenland1.bean.AssetInformationBean;
-import hdcz.com.app.greenland1.picture.ImageHelper;
 
 /**
  * Created by guyuqiang on 2018/1/3.17:11
