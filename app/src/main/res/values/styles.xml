@@ -82,4 +82,81 @@
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingBottom">20dp</item>
     </style>
+    <style name="assetinformation_list_item_headtextsizeandwidth">
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="assetinformation_list_item_textsizeandwidth">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_width">75dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="assetinformation_list_item_edittextsizeandwidth">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="assetinformation_list_item_editusertextsizeandwidth">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="assetinformation_list_item_usertextsizeandwidth">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_width">75dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="assetinformation_list_item_textsizeandwidthwrap">
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="assetinformation_list_item_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="assetinformation_list_item_image">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@mipmap/wjz3</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+    <style name="assetinformation_list_item_pandstatus">
+        <item name="android:layout_width">88dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/assetinformation_pandstatus</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:text">@string/assetinformation_list_item_pdstatus</item>
+    </style>
+    <style name="xiahuaxian_bottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">6dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">@color/xiahuaxian</item>
+    </style>
+    <style name="xiahuaxian_center">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/colorgray</item>
+    </style>
 </resources>

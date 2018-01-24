@@ -69,6 +69,13 @@
                 <category android:name="android.intent.category.HistoryAssetInfoActivity"/>
             </intent-filter>
         </activity>
+        <activity android:name=".PandAssetActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.PandAssetActivity"/>
+                <category android:name="android.intent.category.PandAssetActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +33,7 @@ import hdcz.com.app.greenland1.fragment.FragementXiaoXi;
 import hdcz.com.app.greenland1.fragment.FragmentAsset;
 import hdcz.com.app.greenland1.fragment.FragmentPanDian;
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
+import hdcz.com.app.greenland1.util.TosatShowUtil;
 
 /**
  * Created by guyuqiang on 2017/12/27.15:17
@@ -90,6 +92,8 @@ public class InformationActivity extends FragmentActivity implements RadioGroup.
             rb = findViewById(R.id.rb_pandian);
             rb.setChecked(true);
         }
+        //父layout添加点击事件
+        findViewById(R.id.serach_layout).setOnClickListener(new serachlayout());
     }
 
     @Override
@@ -136,7 +140,14 @@ public class InformationActivity extends FragmentActivity implements RadioGroup.
         if (fgasset != null) fragmentTransaction.hide(fgasset);
         if (fgpandian != null) fragmentTransaction.hide(fgpandian);
     }
-
+    //父layout添加点击事件
+    class serachlayout implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
     public void pandInformation(String name, String url) {
         //定义获取手机信息的SoapAction与命名空间,作为常量
         String namespace = "webservices.blog.weaver.com.cn/";
@@ -187,7 +198,7 @@ public class InformationActivity extends FragmentActivity implements RadioGroup.
                     }
                     if (Integer.parseInt(xiaoxi_status) == 0) {
                         pgbar_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(mcontext, "获取数据失败", Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(mcontext,"请求失败！");
                     }
             }
         }

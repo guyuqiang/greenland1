@@ -24,6 +24,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             "asset_status TEXT(64)," +
             " asset_pandstatus TEXT(64)," +
             " asset_deffind1 TEXT(64)," +
+            " asset_deffind3 INTEGER," +
+            " asset_deffind4 TEXT(64)," +
+            " asset_deffind5 TEXT(64)," +
             " asset_deffind2 TEXT(64))";
      private static final String creatchecktable = "CREATE TABLE hdcz_checkinformation (id INTEGER PRIMARY KEY AUTOINCREMENT,pand_code TEXT(64)," +
              "pand_fqr TEXT(64)," +

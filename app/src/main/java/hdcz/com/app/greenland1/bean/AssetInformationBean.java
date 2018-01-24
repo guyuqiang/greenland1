@@ -39,7 +39,7 @@ public class AssetInformationBean {
     private String asset_deffind1;
     //盘点时间
     private String asset_deffind2;
-    //默认字段3
+    //盘点时间data
     private String asset_deffind3;
     //默认字段4
     private String asset_deffind4;

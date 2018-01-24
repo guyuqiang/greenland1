@@ -1,6 +1,7 @@
 package hdcz.com.app.greenland1.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -39,6 +42,13 @@ public class FragementSerachAsset extends Fragment {
         getData(serachvalues);
         SerachAssetAdapter serachAssetAdapter = new SerachAssetAdapter(data,getContext());
         listView.setAdapter(serachAssetAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        });
        return view;
     }
     public  void getData(String serachvalues){

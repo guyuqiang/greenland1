@@ -33,7 +33,12 @@ public class AssetInformationDao {
     //根据盘点编码和盘点状态查询所有数据
     public List<AssetInformationBean> getAssetByPdcode(String pdcode,String pdstatus,SQLiteDatabase db){
         List<AssetInformationBean> assetlist = new ArrayList<AssetInformationBean>();
-        String sql = "select * from hdcz_assetpand where asset_deffind1 = ? and asset_pandstatus = ?";
+        String sql = "";
+        if("1".equals(pdstatus)){
+            sql = "select * from hdcz_assetpand where asset_deffind1 = ? and asset_pandstatus = ? order by asset_deffind3 desc";
+        }else{
+            sql = "select * from hdcz_assetpand where asset_deffind1 = ? and asset_pandstatus = ?";
+        }
         Cursor cursor = db.rawQuery(sql,new String[]{pdcode,pdstatus});
         while (cursor.moveToNext()){
             AssetInformationBean ab = new AssetInformationBean();
@@ -110,6 +115,7 @@ public class AssetInformationDao {
        Date date = new Date(System.currentTimeMillis());
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
        String date1 = sdf.format(date);
+       Long datanum = System.currentTimeMillis();
        //获取图片字节数组
        ImageHelper imageHelper = new ImageHelper();
        byte [] imagedata = imageHelper.bitmapToBytes(pictiure);
@@ -118,6 +124,7 @@ public class AssetInformationDao {
        contentValues.put("asset_status",assetstatus);
        contentValues.put("asset_deffind2",date1);
        contentValues.put("asset_pdphoto",imagedata);
+       contentValues.put("asset_deffind3",datanum);
        String tablename = "hdcz_assetpand";
        String where = "asset_deffind1 = ? and asset_code = ?";
        String [] string = {pandcode,assetcode};

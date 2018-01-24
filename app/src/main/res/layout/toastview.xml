@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/toast_view"
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:maxWidth="300dp"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:background="@drawable/shape_toast"
+        android:text="打开附件打开附件"
+        android:drawableLeft="@mipmap/toast2"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.CamcorderProfile;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +51,7 @@ import hdcz.com.app.greenland1.json.AssetJson;
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
 import hdcz.com.app.greenland1.util.GetDbUtil;
 import hdcz.com.app.greenland1.util.ReturnMessage;
+import hdcz.com.app.greenland1.util.TosatShowUtil;
 
 /**
  * Created by guyuqiang on 2018/1/3.10:05
@@ -231,7 +234,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                 int num1 = assetInformationDao.getDataCount(checkbean.getCode(), db);
                 if (num1 > 0) {
                     information_imageview.setVisibility(View.INVISIBLE);
-                    Toast.makeText(mecontext, "资料已下载！", Toast.LENGTH_SHORT).show();
+                    TosatShowUtil.showShort(mecontext,"资料已下载！");
                 } else {
                     sh = new SharedHelper(mecontext);
                     final Map<String, String> map = sh.getData();
@@ -253,7 +256,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                         SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
                         assetInformationDao.DeleteAsset(checkbean.getCode(), db);
                         download.setText("下载资料");
-                        Toast.makeText(mecontext, "删除完成！", Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(mecontext,"删除完成！");
                         refreshView();
                     }
                 };
@@ -283,7 +286,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                 startActivity(it);
             } else {
                 pand.setTextColor(Color.parseColor("#8b8787"));
-                Toast.makeText(mecontext, "资产已盘点完!", Toast.LENGTH_SHORT).show();
+                TosatShowUtil.showShort(mecontext,"资产已盘点完！");
             }
         }
     }
@@ -296,7 +299,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
             SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
             wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
             if (Integer.parseInt(wpandnum) > 0) {
-                Toast.makeText(mecontext, "还有未盘点完的资产!", Toast.LENGTH_SHORT).show();
+                TosatShowUtil.showShort(mecontext,"资产未盘点完！");
             } else {
                 information_imageview.setVisibility(View.VISIBLE);
                 //获取数据，盘点信息存入历史记录表中
@@ -450,23 +453,23 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                         }
                         if (assetlist.size() == num) {
                             information_imageview.setVisibility(View.INVISIBLE);
-                            Toast.makeText(mecontext, "资料下载完成！", Toast.LENGTH_SHORT).show();
+                            TosatShowUtil.showShort(mecontext,"资料下载完成！");
                             refreshView();
                             download.setText("删除资料");
                         }
                     }
                     if (Integer.parseInt(assetdown_status) == 0) {
                         information_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(mecontext, "获取数据失败", Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(mecontext,"请求失败！");
                     }
                     break;
                 case 0x002:
                     if(Integer.parseInt(upresult)==1){
                         information_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(mecontext,"数据上传成功！",Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(mecontext,"数据上传成功！");
                     }else {
                         information_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(mecontext,"数据上传失败！",Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(mecontext,"请求失败！");
                     }
                    break;
             }

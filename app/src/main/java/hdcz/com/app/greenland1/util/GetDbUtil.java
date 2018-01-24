@@ -11,7 +11,7 @@ import hdcz.com.app.greenland1.db.DBOpenHelper;
 
 public class GetDbUtil {
     public static  SQLiteDatabase getDb(Context context,int version,String datebase){
-      DBOpenHelper dbOpenHelper = new DBOpenHelper(context,datebase,null,5);
+      DBOpenHelper dbOpenHelper = new DBOpenHelper(context,datebase,null,6);
      SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
      return  db;
     }

@@ -10,4 +10,16 @@
     <string name="assetprefer">资产查询</string>
     <string name="endcheck">结束盘点</string>
     <string name="up">资料上传</string>
+    <string name="xiangqing">详情</string>
+    <string name="assetinformation_list_item_user">使用人：</string>
+    <string name="assetinformation_list_item_assettype">资产分类：</string>
+    <string name="assetinformation_list_item_spex">规格型号：</string>
+    <string name="assetinformation_list_item_unit">计量单位：</string>
+    <string name="assetinformation_list_item_department">所属部门：</string>
+    <string name="assetinformation_list_item_savelocation">存放地点：</string>
+    <string name="assetinformation_list_item_uselocation">使用地点：</string>
+    <string name="assetinformation_list_item_pdsj">盘点时间：</string>
+    <string name="assetinformation_list_item_pdstatus">终端盘点</string>
+    <string name="assetinformation_list_item_assetname">资产名称：</string>
+    <string name="assetinformation_list_item_assetmark">资产编码：</string>
 </resources>

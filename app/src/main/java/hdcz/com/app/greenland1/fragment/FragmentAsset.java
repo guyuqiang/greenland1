@@ -2,6 +2,7 @@ package hdcz.com.app.greenland1.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,10 +18,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 
 
 import org.ksoap2.SoapEnvelope;
@@ -40,6 +43,7 @@ import hdcz.com.app.greenland1.dao.HistoryAssetInfoDao;
 import hdcz.com.app.greenland1.json.AssetJson;
 import hdcz.com.app.greenland1.sharedpreferences.SharedHelper;
 import hdcz.com.app.greenland1.util.GetDbUtil;
+import hdcz.com.app.greenland1.util.TosatShowUtil;
 
 /**
  * Created by guyuqiang on 2017/12/28.12:32
@@ -114,9 +118,18 @@ public class FragmentAsset extends Fragment {
         shserahcbutton.setOnClickListener(new serachebutton());
         //删除按钮添加事件
         shdeletebutton.setOnClickListener(new deleteButton());
+        //父layout添加点击事件
+        view.findViewById(R.id.serach_layout1).setOnClickListener(new serachlayout());
         return view;
     }
-
+    //父layout添加点击事件
+    class serachlayout implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
     //删除按钮添加事件
     class deleteButton implements View.OnClickListener {
         @Override
@@ -147,7 +160,7 @@ public class FragmentAsset extends Fragment {
             HistoryAssetInfoDao historyAssetInfoDao = new HistoryAssetInfoDao();
             num = historyAssetInfoDao.getDataCount(db);
             if (num > 0) {
-                Toast.makeText(getContext(), "数据已下载！", Toast.LENGTH_SHORT).show();
+                TosatShowUtil.showShort(getContext(),"数据已下载！");
             } else {
                 serachasset_imageview.setVisibility(View.VISIBLE);
                 final AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
@@ -176,7 +189,7 @@ public class FragmentAsset extends Fragment {
                 it.putExtras(bundle);
                 startActivity(it);
             } else {
-                Toast.makeText(getContext(), "请先下载数据！", Toast.LENGTH_SHORT).show();
+                TosatShowUtil.showShort(getContext(),"请先下载数据！");
             }
         }
     }
@@ -199,7 +212,7 @@ public class FragmentAsset extends Fragment {
                 ft.add(R.id.serachasset_ly_content, fragementSerachAsset);
                 ft.commit();
             } else {
-                Toast.makeText(getContext(), "请先下载数据！", Toast.LENGTH_SHORT).show();
+                TosatShowUtil.showShort(getContext(),"请先下载数据！");
             }
         }
     }
@@ -275,10 +288,10 @@ public class FragmentAsset extends Fragment {
                         ft.add(R.id.serachasset_ly_content, fragementSerachAsset);
                         ft.commit();
                         serachasset_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(getContext(), "数据下载完成！", Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(getContext(),"数据下载完成！");
                     } else {
                         serachasset_imageview.setVisibility(View.INVISIBLE);
-                        Toast.makeText(getContext(), "获取数据失败！！", Toast.LENGTH_SHORT).show();
+                        TosatShowUtil.showShort(getContext(),"请求失败！");
                     }
             }
         }
