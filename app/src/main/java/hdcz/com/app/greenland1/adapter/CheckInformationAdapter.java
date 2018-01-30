@@ -31,7 +31,7 @@ public class CheckInformationAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mcontext).inflate(R.layout.checkinformation_list_item,parent,false);
         TextView code = convertView.findViewById(R.id.xiaoxi_code);
         TextView fqr = convertView.findViewById(R.id.xiaoxi_fqr);
-        TextView fqsj = convertView.findViewById(R.id.xiaoxi_fqsj);
+       // TextView fqsj = convertView.findViewById(R.id.xiaoxi_fqsj);
         TextView status = convertView.findViewById(R.id.xiaoxi_satus);
         TextView jdt = convertView.findViewById(R.id.xiaoxi_jdt);
         TextView pdsj = convertView.findViewById(R.id.xiaoxi_pdsj);
@@ -43,7 +43,7 @@ public class CheckInformationAdapter extends BaseAdapter {
         String yipandnum = assetInformationDao.getDataCount(data.get(position).getCode(),"1",db);
         code.setText(data.get(position).getCode());
         fqr.setText(data.get(position).getFqr());
-        fqsj.setText(data.get(position).getFqsj());
+        //fqsj.setText(data.get(position).getFqsj());
         status.setText(data.get(position).getPdlx());
         pdsj.setText(data.get(position).getPdsj());
         jdt.setText(yipandnum+"/"+tatolnum);

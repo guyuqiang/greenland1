@@ -6,11 +6,16 @@
     android:clickable="true"
     android:layout_height="match_parent">
 
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_above="@id/rg_tab_bar"
+    android:background="@color/colorPrimaryDark"
+    android:layout_marginBottom="2dp"
+    android:layout_height="1dp" />
     <RadioGroup
         android:id="@+id/rg_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorgray"
         android:orientation="horizontal">
@@ -19,19 +24,19 @@
             android:id="@+id/rb_xiaoxi"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/xiaoxi_selector"
-            android:text="" />
+            android:text="消息" />
 
         <RadioButton
             android:id="@+id/rb_asset"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/serach_selector"
-            android:text="" />
+            android:text="查询" />
 
         <RadioButton
             android:id="@+id/rb_pandian"
             style="@style/tab_menu_item"
             android:drawableTop="@drawable/history_selector"
-            android:text="" />
+            android:text="记录" />
     </RadioGroup>
 
     <FrameLayout

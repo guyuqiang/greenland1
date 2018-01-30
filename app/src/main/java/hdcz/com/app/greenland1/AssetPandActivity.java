@@ -165,11 +165,13 @@ public class AssetPandActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       if(requestCode == Activity.DEFAULT_KEYS_DIALER){
-           Bundle bundle = data.getExtras();
-            bitmap = (Bitmap) bundle.get("data");
-           image_show.setImageBitmap(bitmap);
-           //image_show.setImageURI(Uri.fromFile(currentimagefile));
-       }
+        if (resultCode != 0) {
+            if (requestCode == Activity.DEFAULT_KEYS_DIALER) {
+                Bundle bundle = data.getExtras();
+                bitmap = (Bitmap) bundle.get("data");
+                image_show.setImageBitmap(bitmap);
+                //image_show.setImageURI(Uri.fromFile(currentimagefile));
+            }
+        }
     }
 }

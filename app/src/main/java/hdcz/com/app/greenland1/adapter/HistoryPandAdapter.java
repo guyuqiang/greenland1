@@ -32,12 +32,12 @@ public class HistoryPandAdapter extends BaseAdapter {
         TextView fqr = convertView.findViewById(R.id.historypand_fqr);
         TextView wcsj = convertView.findViewById(R.id.historypand_wcsj);
         TextView status = convertView.findViewById(R.id.historypand_lx);
-        TextView pdsj = convertView.findViewById(R.id.historypand_pdsj);
+       // TextView pdsj = convertView.findViewById(R.id.historypand_pdsj);
         code.setText(data.get(position).getCode());
         fqr.setText(data.get(position).getFqr());
         wcsj.setText(data.get(position).getDeffind1());
         status.setText(data.get(position).getPdlx());
-        pdsj.setText(data.get(position).getPdsj());
+       // pdsj.setText(data.get(position).getPdsj());
         return convertView;
     }
 

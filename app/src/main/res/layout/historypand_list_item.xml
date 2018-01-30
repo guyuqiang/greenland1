@@ -40,7 +40,7 @@
                 android:id="@+id/historypand_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:textColor="@color/colorBlack"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -56,20 +56,7 @@
                 android:id="@+id/historypand_fqr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="完成时间:" />
-
-            <TextView
-                android:id="@+id/historypand_wcsj"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:text="" />
         </LinearLayout>
         <LinearLayout
@@ -83,20 +70,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/colorBlack"
-                android:text="类型" />
+                android:text="类型:" />
 
             <TextView
                 android:id="@+id/historypand_lx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:text="进度条" />
 
+            <!--<TextView-->
+                <!--android:id="@+id/historypand_pdsj"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="" />-->
             <TextView
-                android:id="@+id/historypand_pdsj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="完成时间:" />
+
+            <TextView
+                android:id="@+id/historypand_wcsj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:text="" />
         </LinearLayout>
     </LinearLayout>

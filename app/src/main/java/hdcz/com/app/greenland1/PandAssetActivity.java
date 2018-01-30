@@ -230,10 +230,12 @@ public class PandAssetActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Activity.DEFAULT_KEYS_DIALER) {
-            Bundle bundle = data.getExtras();
-            bitmap = (Bitmap) bundle.get("data");
-            image_show1.setImageBitmap(bitmap);
+        if (requestCode != 0) {
+            if (requestCode == Activity.DEFAULT_KEYS_DIALER) {
+                Bundle bundle = data.getExtras();
+                bitmap = (Bitmap) bundle.get("data");
+                image_show1.setImageBitmap(bitmap);
+            }
         }
     }
 }

@@ -14,14 +14,14 @@
         <!--<item name="android:background">@drawable/tab_menu_bg</item>-->
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
-        <!--<item name="android:textColor">@drawable/tab_menu_text</item>-->
+        <item name="android:textColor">@drawable/tab_menu_text</item>
         <!--<item name="android:textSize">22dp</item>-->
         <!--<item name="android:paddingTop">2dp</item>-->
     </style>
     <style name="back_button">
         <item name="android:layout_width">34dp</item>
         <item name="android:layout_height">34dp</item>
-        <item name="android:background">@mipmap/xiaoxi_back</item>
+        <item name="android:background">@mipmap/back1</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center</item>
         <item name="android:text"></item>
@@ -43,7 +43,7 @@
     <style name="delete_button">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@mipmap/delete2</item>
+        <item name="android:background">@mipmap/delete3</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center</item>
         <item name="android:text"></item>

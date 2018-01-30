@@ -15,7 +15,7 @@
         android:gravity="center"
         android:background="@drawable/shape_toast"
         android:text="打开附件打开附件"
-        android:drawableLeft="@mipmap/toast2"
+        android:drawableLeft="@mipmap/toast4"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

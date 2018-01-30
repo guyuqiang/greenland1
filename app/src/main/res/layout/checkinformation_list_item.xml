@@ -21,7 +21,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
@@ -33,20 +32,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:textColor="@color/colorBlack"
-                android:textSize="16dp"
                 android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_weight="1"
                 android:text="@string/code" />
 
             <TextView
                 android:id="@+id/xiaoxi_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:textColor="@color/colorBlack"
-                android:textSize="16dp"
                 android:textStyle="bold"
+                android:textSize="16dp"
                 android:text="CHGS00001" />
 
             <TextView
@@ -59,21 +58,20 @@
                 android:id="@+id/xiaoxi_fqr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:text="小雨玉" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/fqsj" />
+            <!--<TextView-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/fqsj" />-->
 
-            <TextView
-                android:id="@+id/xiaoxi_fqsj"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2018-01-14" />
+            <!--<TextView-->
+                <!--android:id="@+id/xiaoxi_fqsj"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="2018-01-14" />-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

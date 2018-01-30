@@ -10,4 +10,6 @@
     <color name="colordarkgray">#8b8787</color>
     <color name="colorlightgray">#f9f7f7</color>
     <color name="xiahuaxian">#50AE89</color>
+    <color name="colorgray1">#c3c3c3</color>
+    <color name="colorbottombar">#adcc56</color>
 </resources>

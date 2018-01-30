@@ -272,6 +272,7 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
             AssetInformationDao assetInformationDao = new AssetInformationDao();
             SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
             wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+            yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
             if (Integer.parseInt(wpandnum) > 0) {
                 Intent it = new Intent(PdInformationActivity.this, CaptureActivity.class);
                 Bundle bundle = new Bundle();
@@ -285,8 +286,13 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
                 it.putExtras(bundle);
                 startActivity(it);
             } else {
-                pand.setTextColor(Color.parseColor("#8b8787"));
-                TosatShowUtil.showShort(mecontext,"资产已盘点完！");
+                if(Integer.parseInt(yipandnum)==0){
+                    pand.setTextColor(Color.parseColor("#8b8787"));
+                    TosatShowUtil.showShort(mecontext,"没有数据！");
+                }else {
+                    pand.setTextColor(Color.parseColor("#8b8787"));
+                    TosatShowUtil.showShort(mecontext,"资产已盘点完！");
+                }
             }
         }
     }
@@ -298,32 +304,37 @@ public class PdInformationActivity extends FragmentActivity implements RadioGrou
             AssetInformationDao assetInformationDao = new AssetInformationDao();
             SQLiteDatabase db = GetDbUtil.getDb(mecontext, 2, "my.db");
             wpandnum = assetInformationDao.getDataCount(checkbean.getCode(), "0", db);
+            yipandnum = assetInformationDao.getDataCount(checkbean.getCode(), "1", db);
             if (Integer.parseInt(wpandnum) > 0) {
                 TosatShowUtil.showShort(mecontext,"资产未盘点完！");
             } else {
-                information_imageview.setVisibility(View.VISIBLE);
-                //获取数据，盘点信息存入历史记录表中
-                CheckInformationDao checkInformationDao = new CheckInformationDao();
-                checkbean.setPdr(user);
-                //获取当前时间
-                Date data = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String currentdata = sdf.format(data);
-                checkbean.setDeffind1(currentdata);
-                checkInformationDao.saveCheckInformation(checkbean, db);
-                //上传数据
-                AssetInformationDao assetInformationDao1 = new AssetInformationDao();
-                 db = GetDbUtil.getDb(mecontext,5,"my.db");
-                 final Map<String,String> map = sh.getData();
-                final String json = assetInformationDao1.upAsset(checkbean.getCode(),db);
-                final AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
-                    @Override
-                    protected String doInBackground(Void... voids) {
-                        assetUp(json,map.get("ljtext"));
-                        return null;
-                    }
-                };
-                task.execute();
+                if(Integer.parseInt(yipandnum)==0){
+                    TosatShowUtil.showShort(mecontext,"没有数据！");
+                }else {
+                    information_imageview.setVisibility(View.VISIBLE);
+                    //获取数据，盘点信息存入历史记录表中
+                    CheckInformationDao checkInformationDao = new CheckInformationDao();
+                    checkbean.setPdr(user);
+                    //获取当前时间
+                    Date data = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String currentdata = sdf.format(data);
+                    checkbean.setDeffind1(currentdata);
+                    checkInformationDao.saveCheckInformation(checkbean, db);
+                    //上传数据
+                    AssetInformationDao assetInformationDao1 = new AssetInformationDao();
+                    db = GetDbUtil.getDb(mecontext, 5, "my.db");
+                    final Map<String, String> map = sh.getData();
+                    final String json = assetInformationDao1.upAsset(checkbean.getCode(), db);
+                    final AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+                        @Override
+                        protected String doInBackground(Void... voids) {
+                            assetUp(json, map.get("ljtext"));
+                            return null;
+                        }
+                    };
+                    task.execute();
+                }
             }
         }
     }
